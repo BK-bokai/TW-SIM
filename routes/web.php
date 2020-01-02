@@ -20,13 +20,13 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 
 Route::post('register', 'Auth\RegisterController@register')->name('do_register');
 
-Route::get('confirm/{active}','frontend\ConfirmUserController@confirm')->name('confirm');
+Route::get('confirm/{active}','Auth\RegisterController@confirm')->name('confirm');
 
 Route::get('/email', 'frontend\RegisterEmailController@send');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
-Route::post('login', 'Auth\LoginController@login')->name('dologin');
+Route::post('login', 'Auth\LoginController@login')->name('do_login');
 
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -35,7 +35,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('/Facebook/redirect/{provider}', 'FbLoginController@redirect')->name('fbLogin');
 Route::get('/FBcallback/{provider}', 'FbLoginController@callback');
 
-
-Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
-
-
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+});

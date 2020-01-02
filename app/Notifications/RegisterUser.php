@@ -7,18 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class RegisterEmail extends Notification
+class RegisterUser extends Notification
 {
     use Queueable;
-
+    protected $activasion;
+    protected $url;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($activasion,$url)
     {
-        //
+        $this->activasion=$activasion;
+        $this->url       = $url;
     }
 
     /**
@@ -40,10 +42,13 @@ class RegisterEmail extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = route('confirm',['active'=>$notifiable]);
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('已註冊成功請進行下一步認證')
+            ->markdown('email.RegisterUser')
+            ->line('您於BK網站申請註冊，請點選下列網址進行進一步認證')
+            ->action('進行下一步認證', $this->url)
+            ->line('若您並未申請此動作，請忽略此信');
     }
 
     /**

@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
 use Illuminate\Foundation\Bootstrap\RegisterFacades;
+use Illuminate\Support\Facades\Redis;
 
 class RegisterController extends Controller
 {
@@ -34,6 +35,7 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/login';
     protected $RegisterService;
+    protected $redis;
 
     protected function redirectTo()
     {
@@ -49,6 +51,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
         $this->RegisterService = $RegisterService;
+        $this->redis = app('redis.connection');
     }
 
 
@@ -99,10 +102,33 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
     //     // $this->RegisterService->send($activasion,$request);
+        $url =  route('confirm',['active'=>$activasion]);
+        
+        // $redis = app('redis.connection');
+        $this->redis->set($request->name,$activasion);
+        $this->redis->expire($request->name,300);
 
-    //     $this->RegisterService->sendServer($user->email, $activasion);
+        $this->RegisterService->sendServer($user->email, $activasion, $url);
         
         return $this->registered($request, $user)
-            ?: redirect($this->redirectPath())->with('status', '已註冊成功，請至信箱收取確認信件');;
+            ?: redirect($this->redirectPath())->with('status', '已註冊成功，請於5分鐘內至信箱收取確認信件並完成確認動作');
+    }
+
+    public function confirm($active)
+    {
+        $user = User::where('active', $active)->first();
+
+        if( !empty( $user) && $this->redis->get($user->name) )
+        {  
+            $user->active='active';
+            $user->save();
+            $this->redis->del($user->name);
+            return redirect($this->redirectPath())->with('status', '帳號已啟動，請進行登入動作'); 
+        }
+        else
+        {
+            return redirect()->route('login');
+        }
+
     }
 }

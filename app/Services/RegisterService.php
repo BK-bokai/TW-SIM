@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\register;
 use Illuminate\Support\Facades\Session;
 use App\Jobs\SendRegisterMail;
+use Illuminate\Support\Facades\Redis;
 
 class RegisterService
 {
@@ -83,8 +84,8 @@ class RegisterService
         return false;
     }
 
-    public function sendServer($email,$activasion)
+    public function sendServer($email,$activasion,$url)
     {
-        dispatch(new SendRegisterMail($email,$activasion));
+        dispatch(new SendRegisterMail($email,$activasion,$url));
     }
 }

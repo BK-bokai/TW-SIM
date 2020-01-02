@@ -2,20 +2,20 @@
 @section('title','會員登入')
 @section('content')
 <div class="row container login">
-    <form method="post" action="{{url('login')}}" class="col s12 loginform" enctype="multipart/form-data">
+    <form method="post" action="{{route('do_login')}}" class="col s12 loginform" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="row">
             <div class="input-field col s12">
-                <input id="username" type="text" class="validate un" name='username'>
-                <label for="username"><span class="member">帳號</span></label>
+                <input id="name" type="text" class="validate un" name='name'>
+                <label for="name"><span class="member">帳號</span></label>
                 <?php //print_r(Session::get('errors'))
                 ?>
                 @error('active')
                 <p class="red-text"> {{ $message }} </p>
                 @enderror
 
-                @error('username')
+                @error('name')
                 <p class="red-text">{{ $message }}</p>
                 @enderror
             </div>

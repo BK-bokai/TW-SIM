@@ -56,7 +56,7 @@
 
 <body>
   @include("backend.Layouts.menu")
-  <main>
+  <main class="red lighten-5">
     @yield("content")
   </main>
 </body>

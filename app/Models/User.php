@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\RegisterUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -37,9 +38,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function sendRegisterNotification($activasion)
+    public function sendRegisterNotification($activasion,$url)
     {
-        $this->notify(new RegisterUser($activasion));
+        $this->notify(new RegisterUser($activasion,$url));
     }
 
     public function evaluate_tasks()
