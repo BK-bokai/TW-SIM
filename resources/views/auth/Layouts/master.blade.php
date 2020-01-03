@@ -52,9 +52,9 @@
 
   <!-- <link rel="Shortcut Icon" type="image/x-icon" href="img/PBLAP_logo_small_c.png"> -->
   <style>
-    nav .brand-logo {
+    /* nav .brand-logo {
       font-size: 2.1rem;
-    }
+    } */
   </style>
 
 </head>

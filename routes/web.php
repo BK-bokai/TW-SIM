@@ -37,5 +37,9 @@ Route::get('/FBcallback/{provider}', 'FbLoginController@callback');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
+    Route::post('/Evaluate', 'backend\EvaluateController@evaluate')->name('do_Evaluate');
+
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+    
 });

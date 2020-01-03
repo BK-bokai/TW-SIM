@@ -13,4 +13,9 @@ class EvaluateController extends Controller
         $Evaluate_List = Evaluate_tasks::all();
         return view('backend.Evaluate', compact('Evaluate_List'));
     }
+
+    function evaluate(Request $request)
+    {
+        return $request;
+    }
 }
