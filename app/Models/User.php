@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'active'
+        'name', 'email', 'password', 'active', 'provider', 'provider_id'
     ];
 
     /**
@@ -50,6 +50,6 @@ class User extends Authenticatable
          * user_id foreignKey 当前表关联字段
          * id localKey 关联表字段
          */
-        return $this->hasMany('App\Model\Evaluate_tasks', 'user_id', 'id');
+        return $this->hasMany('App\Models\Evaluate_tasks', 'user_id', 'id');
     }
 }

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
 
 
@@ -32,14 +32,18 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-Route::get('/Facebook/redirect/{provider}', 'FbLoginController@redirect')->name('fbLogin');
-Route::get('/FBcallback/{provider}', 'FbLoginController@callback');
+Route::get('/Facebook/redirect/{provider}', 'Auth\FbLoginController@redirect')->name('fbLogin');
+Route::get('/FBcallback/{provider}', 'Auth\FbLoginController@callback');
+
+
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
     Route::post('/Evaluate', 'backend\EvaluateController@evaluate')->name('do_Evaluate');
+    Route::get('/Evaluate/download/{Time_Period}','backend\EvaluateController@download')->name('download_Evaluate');
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    
 
     
 });

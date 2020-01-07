@@ -8,7 +8,7 @@ class Evaluate_tasks extends Model
 {
     protected $table = 'evaluate_tasks';
     protected $fillable = [
-        'Time_Period','Path'
+        'Time_Period'
     ];
 
     public function user()
@@ -18,6 +18,6 @@ class Evaluate_tasks extends Model
          * user_id ownerKey 当前表关联字段
          * id relation 关联表字段，这里指 user 表
          */
-        return $this->belongsTo('App\Model\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 }

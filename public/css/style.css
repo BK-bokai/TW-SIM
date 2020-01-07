@@ -15,7 +15,7 @@ body {
 
 main {
     /* background-color: antiquewhite; */
-    padding-top: 5%;
+    /* padding-top: 5%; */
     flex: 1 0 auto;
     font-weight: bold;
 }
@@ -307,4 +307,12 @@ a.dropdown-trigger.btn.grey.darken-1.replyBut {
 
 .dropdown-content li>a, .dropdown-content li>span {
     color:#000000;
+}
+
+.card.row {
+    margin: 0;
+}
+
+.evabox{
+    margin-top: 5%;
 }
