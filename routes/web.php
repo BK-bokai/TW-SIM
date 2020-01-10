@@ -35,14 +35,20 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::get('/Facebook/redirect/{provider}', 'Auth\FbLoginController@redirect')->name('fbLogin');
 Route::get('/FBcallback/{provider}', 'Auth\FbLoginController@callback');
 
-
+// https://192.168.1.166/php/TW_SIM_Evaluate/public/FBcallback/facebook
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
     Route::post('/Evaluate', 'backend\EvaluateController@evaluate')->name('do_Evaluate');
     Route::get('/Evaluate/download/{Time_Period}','backend\EvaluateController@download')->name('download_Evaluate');
 
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('/MetData','backend\MetDataController@index')->name('MetData');
+
+    Route::get('/MetMonthData/{year}/{month}/{datatype}/{var}','backend\MetDataController@MetMonthData')->name('MetMonthData');
+    Route::post('/MetMonthData/{year}/{month}/{datatype}/{var}','backend\MetDataController@MetUpload')->name('UploatMet');
+    Route::delete('/DELETE/{MetData}/{datatype}/{var}','backend\MetDataController@MetDelete')->name('DeleteMet');
+
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     
 
     

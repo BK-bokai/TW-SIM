@@ -43,13 +43,13 @@ class User extends Authenticatable
         $this->notify(new RegisterUser($activasion,$url));
     }
 
-    public function evaluate_tasks()
+    public function Met_evaluates()
     {
         /**
          * Post::class related 关联模型
          * user_id foreignKey 当前表关联字段
          * id localKey 关联表字段
          */
-        return $this->hasMany('App\Models\Evaluate_tasks', 'user_id', 'id');
+        return $this->hasMany('App\Models\Met_evaluates', 'user_id', 'id');
     }
 }

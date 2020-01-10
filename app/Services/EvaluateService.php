@@ -21,8 +21,8 @@ class EvaluateService
     // }
 
 
-    public function Met_Evaluate($start,$end)
+    public function Met_Evaluate($now,$start,$end,$rootdir)
     {
-        dispatch(new Met_Evaluate($start,$end));
+        dispatch(new Met_Evaluate($now,$start,$end,$rootdir));
     }
 }

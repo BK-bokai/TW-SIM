@@ -12,17 +12,21 @@ class Met_Evaluate implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $now;
     protected $start;
     protected $end;
+    protected $rootdir;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($start,$end)
+    public function __construct($now,$start,$end,$rootdir)
     {
+        $this->now = $now;
         $this->start = $start;
         $this->end   = $end;
+        $this->rootdir = $rootdir;
     }
 
     /**
@@ -32,7 +36,9 @@ class Met_Evaluate implements ShouldQueue
      */
     public function handle()
     {
-        $command="py -3 D:\bokai\python\python-code\Evaluate_tool\Meteorology.py" .' '. $this->start.' '. $this->end ;
+        $now = date("Y-m-d-H-i-s");
+        
+        $command=env('pycommand').' '.$this->start.' '.$this->end.' '.$this->now.' '.$this->rootdir;
         exec($command);
     }
 }

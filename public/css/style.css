@@ -2,7 +2,6 @@
 body {
     font-family: 'cwTeXYen', sans-serif;
 }
-
 html, body {
     height: 100%;
 }
@@ -225,9 +224,9 @@ button.cancel.btn.btn-lg.btn-default {
     background-color: #949e93;
 }
 
-button.confirm.btn.btn-lg.btn-primary {
+/* button.confirm.btn.btn-lg.btn-primary {
     background-color: #e57373;
-}
+} */
 
 button.confirm.btn.btn-lg.btn-primary.swalSuccess {
     background-color: #26a69a
@@ -309,10 +308,40 @@ a.dropdown-trigger.btn.grey.darken-1.replyBut {
     color:#000000;
 }
 
-.card.row {
+.addeva {
     margin: 0;
 }
 
 .evabox{
     margin-top: 5%;
 }
+
+.tabs {
+    display:-webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.tabs .tab a{
+    color:#000;
+} /*Black color to the text*/
+
+.tabs .tab a:hover {
+    background-color:#eee;
+    color:#000;
+} /*Text color on hover*/
+
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color:#888;
+}
+
+.tabs .tab a.active {
+    background-color:#888;
+    color:#000;
+} /*Background and text color when a tab is active*/
+
+.tabs .indicator {
+    background-color:#000;
+} /*Color of underline*/
+

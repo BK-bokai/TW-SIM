@@ -43,9 +43,10 @@
     <![endif]-->
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css">
-
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  
   <!--css樣式-->
 
   <link rel="stylesheet" href="{{ asset('css/style.css') }}" charset="utf-8">
@@ -56,7 +57,7 @@
 
 <body>
   @include("backend.Layouts.menu")
-  <main class="red lighten-5">
+  <main id='main' class="red lighten-5">
     @yield("content")
   </main>
 </body>
