@@ -3,24 +3,13 @@ $redis=new Redis ;
 $redis->connect("127.0.0.1","6379");
 @endphp
 
-@section('js')
-<script src="{{ asset('js/index_image.js') }}" charset="utf-8"></script>
-@endsection
+
 
 @extends('backend.Layouts.master')
 @section('title','任務清單')
 
 @section('content')
-<!-- <input type="file" name="file[]" multiple="multiple" required="required" draggable="true" /> -->
 <div class=" card row " style="margin-top: 0">
-    <!-- <div class="row">
-    <div class="col s12 center">
-        <ul class="tabs">
-            <li class="tab col s6"><a href="#2016">2016</a></li>
-            <li class="tab col s6"><a href="#2019">2019</a></li>
-        </ul>
-    </div> -->
-    <!-- </div> -->
     <form method="post" action="{{route('admin.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table class="highlight centered">
@@ -78,35 +67,76 @@ $redis->connect("127.0.0.1","6379");
                 <th>任務編號</th>
                 <th>時間區間</th>
                 <th>下載</th>
+                <th>刪除</th>
             </tr>
         </thead>
 
         @foreach($Evaluate_List as $Eva)
-        <tbody>
+        <tbody id="{{$Eva->id}}">
             <tr>
                 <td>
-                    {{$Eva->id}}
+                {{ $loop->index +1 }}
                 </td>
                 <td>
                     {{$Eva->Time_Period}}
                 </td>
                 <td>
-                    @if($Eva->Finish)
-                    <a href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">Download</a>
-                    @else
-                    <p>請稍後
-                        {{$redis->ttl($Eva->Time_Period)}}
-                    </p>
-                    <div class="preloader-wrapper active">
-                        <div class="spinner-layer spinner-green-only">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
+                    <a class="green-text" href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
+                </td>
+                <td>
+                    <a btnid="{{$Eva->id}}" class="red-text delEva"  href="javascript:void(0)" url="{{route('admin.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
                 </td>
             </tr>
+        </tbody>
+
+        @endforeach
+
+        @if($First_unFinish !== null)
+        <tbody>
+            <td>
+                {{$First_unFinish->id}}
+            </td>
+            <td>
+                {{$First_unFinish->Time_Period}}
+            </td>
+            <td>
+                <p id="wait" time="{{$redis->ttl($First_unFinish->Time_Period)}}"> 待{{$redis->ttl($First_unFinish->Time_Period)}}秒後</p>
+                <p>執行完畢</p>
+            </td>
+            <script>
+                $(document).ready(function() {
+                    let obj = $('#wait');
+                    let time = parseInt(obj.attr('time')) * 1000;
+                    let MyCounter = function() {
+                        if (time <= 0) {
+                            window.location.reload()
+                        } else {
+                            console.log((time / 1000) + " sec...");
+                            obj.html(`待${time / 1000}秒後`);
+                            setTimeout(MyCounter, 1000);
+                        }
+                        time -= 1000;
+                    }
+                    MyCounter();
+                })
+            </script>
+        </tbody>
+        @endif
+
+        @foreach($unFinish_List as $job)
+        <tbody>
+            <td>
+                {{$job->id}}
+            </td>
+            <td>
+                {{$job->Time_Period}}
+            </td>
+            <td>
+                <p>等待先前已丟出</p>
+                <p>的工作執行完畢後，</p>
+                <p>此工作還須執行{{$job->Execution_Time}}
+                    秒</p>
+            </td>
         </tbody>
         @endforeach
     </table>
@@ -118,7 +148,7 @@ $redis->connect("127.0.0.1","6379");
 <h5 class=" teal-text text-lighten-2">暫時無任何性能評估</h6>
     @endif
 
-    <!-- <script src="{{ asset('js/Evaluate.js') }}"></script> -->
+    <script src="{{ asset('js/Evaluate.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.tabs').tabs();

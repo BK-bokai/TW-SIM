@@ -1,29 +1,103 @@
-<script language="JavaScript">
-    window.onload = ShowTime;
-    function ShowTime() {
-        var NowDate = new Date();
-        var h = NowDate.getHours();
-        var m = NowDate.getMinutes();
-        var s = NowDate.getSeconds();
-        document.getElementById('showbox').innerHTML = h + '時' + m + '分' + s + '秒';
-        setTimeout('ShowTime()', 1000);//單位為毫秒
-    }
-
-    // window.onload = MyCounter;
-    var time = 7000;//倒數7秒
-    !function MyCounter() {
-        if (time <= 0) {
-            //倒數完成
-        } else {
-            console.log((time / 1000) + " sec...");
-            document.getElementById('test').innerHTML = (time / 1000) + " sec...";
-            setTimeout(MyCounter, 1000);
-        }
-        time -= 1000;
-    }();
-</script>
+<!-- jqury CDN -->
+<!-- <script src="{{ asset('js/jquery-3.4.1.min.js') }}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <body>
-    <div id="showbox"></div>
-    <div id='test'></div>
+    <!-- <div id="showbox"></div> -->
+    <script>
+        // $(document).ready(function () {
+        // window.onload = ShowTime;
+        // function ShowTime() {
+        //     var NowDate = new Date();
+        //     var h = NowDate.getHours();
+        //     var m = NowDate.getMinutes();
+        //     var s = NowDate.getSeconds();
+        //     document.getElementById('showbox').innerHTML = h + '時' + m + '分' + s + '秒';
+        //     setTimeout('ShowTime()', 1000);//單位為毫秒
+        // }
+
+        // window.onload = MyCounter;
+        // let time = 7000;//倒數7秒
+        // !function MyCounter() {
+        //     if (time <= 0) {
+        //         //倒數完成
+        //     } else {
+        //         console.log((time / 1000) + " sec...");
+        //         $('#test').html(`${time/1000}`);
+        //         setTimeout(MyCounter, 1000);
+        //     }
+        //     time -= 1000;
+        // }();
+
+
+        // let MyCounter = function () {
+        //     if (time <= 0) {
+        //         //倒數完成
+        //     } else {
+        //         console.log((time / 1000) + " sec...");
+        //         $(`#${obj}`).html(`${time / 1000}`);
+        //         setTimeout(MyCounter, 1000);
+        //     }
+        //     time -= 1000;
+        // }
+
+
+        // let MyCounter = function (time, obj) {
+        //     this.time = time;
+        //     this.obj = obj;
+
+        //     let count = function () {
+        //         if (this.time >= 0) {
+        //             console.log((this.time / 1000) + " sec...");
+        //             $(`#${this.obj}`).html(`${this.time / 1000}`);
+        //             setTimeout(count, 1000);
+        //         }
+        //         this.time -= 1000;
+        //     }
+        //     count();
+        // }
+
+        // class MyCounter {
+        //     constructor(time, obj) {
+        //         this.time = time;
+        //         this.obj = obj;
+        //     }
+
+        //     count() {
+        //         if (this.time >= 0) {
+        //             console.log((this.time / 1000) + " sec...");
+        //             $(`#${this.obj}`).html(`${this.time / 1000}`);
+        //             setTimeout(this.count, 1000);
+        //         }
+        //         this.time -= 1000;
+        //     }
+
+        //     // count()
+        // }
+
+
+    </script>
+    <p id='test' time ='80'></p>
+    <script>
+        $(document).ready(function () {
+            let obj = $('#test');
+            let time = parseInt(obj.attr('time'))*1000;
+            let MyCounter = function () {
+                if (time <= 0) {
+                    //倒數完成
+                } else {
+                    console.log((time / 1000) + " sec...");
+                    obj.html(`${time / 1000}`);
+                    setTimeout(MyCounter, 1000);
+                }
+                time -= 1000;
+            }
+            MyCounter();
+        })
+    </script>
+
+
+
+
 </body>

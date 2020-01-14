@@ -41,12 +41,18 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
     Route::post('/Evaluate', 'backend\EvaluateController@evaluate')->name('do_Evaluate');
     Route::get('/Evaluate/download/{Time_Period}','backend\EvaluateController@download')->name('download_Evaluate');
+    Route::delete('/Evaluate/delete/{Met_eva}','backend\EvaluateController@delete')->name('delete_Evaluate');
+
 
     Route::get('/MetData','backend\MetDataController@index')->name('MetData');
 
-    Route::get('/MetMonthData/{year}/{month}/{datatype}/{var}','backend\MetDataController@MetMonthData')->name('MetMonthData');
-    Route::post('/MetMonthData/{year}/{month}/{datatype}/{var}','backend\MetDataController@MetUpload')->name('UploatMet');
-    Route::delete('/DELETE/{MetData}/{datatype}/{var}','backend\MetDataController@MetDelete')->name('DeleteMet');
+    Route::get('/MetMonthData/get/{year}/{month}/{datatype}/{var}','backend\MetDataController@MetMonthData')->name('MetMonthData');
+    Route::post('/MetMonthData/post/{year}/{month}/{datatype}/{var}','backend\MetDataController@MetUpload')->name('UploatMet');
+    Route::get('/MetMonthData/download/{DataID}/{datatype}/{var}','backend\MetDataController@download')->name('download_MetMonth');
+    Route::post('/MetMonthData/multiple/{method}/{datatype}/{var}','backend\MetDataController@Multiple')->name('Multiple');
+
+
+    Route::delete('/DELETE/{DataID}/{datatype}/{var}','backend\MetDataController@MetDelete')->name('DeleteMet');
 
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     

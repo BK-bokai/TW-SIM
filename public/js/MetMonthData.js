@@ -16,6 +16,10 @@ $(document).ready(function () {
     }).then((result) => {
       if (result.value) {
         $("tr[date=" + date + "data]").slideUp(300)
+        let text = $("#dataInfo").text();
+        let num = parseInt(text.match(/\d+/));
+        $("#dataInfo").text("目前僅有" + String(num - 1) + "筆資料")
+        $("#dataInfo").attr('class', 'red');
         $.ajax({
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -40,63 +44,64 @@ $(document).ready(function () {
 
   })
 
-  // $("form.del_img").on("submit", function() {
-  //   return confirm("Are you sure?");
-  // });
+  $('#checkAll').on('change', function () {
 
-  $("button.delete").on('click', function (e) {
-    e.preventDefault();
-    location.reload();
+    let objs = $("input[type='checkbox']");
+    for (var i = 0; i < objs.length; i++) {
+      objs[i].checked = this.checked;
+    }
+    console.log($("input[type='checkbox']"))
+
   })
 
-  $("button.del_img").on('click', function (e) {
-    e.preventDefault();
-    var form = $(this).parents().parents('form');
-    // form.submit();
-    // var c = confirm("你確定要刪除此項片嗎?")
-    swal({
-      title: "Are you sure?",
-      text: "你確定要刪除此項片嗎?",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "確認刪除",
-      cancelButtonText: "取消此動作",
-      closeOnConfirm: false,
-    },
-      function (isConfirm) {
-        if (isConfirm) form.submit();
-      });
+  $("input[type='checkbox']").on('change',function(){
+    if($('input[type="checkbox"]:checked').length >= 1)
+    {
+      $('.checkbtn').removeClass('disabled');
+    }
+    else
+    {
+      $('.checkbtn').addClass('disabled');
+    }
   })
 
-  $($(".img_box input[type=radio]")).on('change', function () {
-    // alert($(this).attr('data-id'));
-    // alert($("input[data-id=" + $(this).attr('data-id') + "]:checked").val())
+
+ 
+
+  $('.checkbtn').on('click', function (e) {
+    e.preventDefault();
     let url = $(this).attr('url');
-    alert(url)
-    var c = confirm("你確定要更改此設定嗎");
-    if (c) {
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type: "PUT",
-        // url: '{{url("admin/img")}}'+ '/' + $(this).attr('data-id'),
-        url: url,
-        data: {
-          id: $(this).attr('data-id'),
-          publish: $("input[data-id=" + $(this).attr('data-id') + "]:checked").val()
-        },
-        dataType: 'html',
-        success: function (data) {
-          console.log(data);
-          console.log("ajax success");
+    let form = $('#allForm');
+    let method = $(this).attr('method');
+    form.attr('action',url);
+    if( method == 'delete' )
+    {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: `確定要刪除這些檔案`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Deleted!',
+            '檔案已刪除',
+            'success'
+          )
+          form.submit();
         }
       })
     }
-    else {
-      location.reload();
+    else
+    {
+      form.submit();
+      setTimeout(function(){
+        window.location.reload();
+      },700)
     }
+  })
 
-  });
 })

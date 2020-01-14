@@ -75,28 +75,39 @@ class MetDataController extends Controller
 
     public function MetMonthData(Request $request, $year, $month, $datatype, $var)
     {
+        $month_Arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+        $dataType_Arr = ['Sim', 'Obs'];
+        $year_Arr = ['2016', '2020'];
+        $var_Arr = ['T2', 'WS', 'WD'];
+        if (!in_array($month, $month_Arr, true) || !in_array($year, $year_Arr, true) || !in_array($var, $var_Arr, true)) {
+            throw new \Symfony\Component\HttpKernel\Exception\HttpException(404);
+        }
+
+        $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+
         if ($datatype == 'Obs') {
             if ($var == 'T2') {
                 $datas = Met_obsdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var'));
+                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WS') {
                 $datas = Met_obsdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var'));
+                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WD') {
                 $datas = Met_obsdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var'));
+                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             }
         }
         if ($datatype == 'Sim') {
             if ($var == 'T2') {
                 $datas = Met_simdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var'));
+                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WS') {
                 $datas = Met_simdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var'));
+                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WD') {
                 $datas = Met_simdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var'));
+                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             }
         }
     }
@@ -115,6 +126,12 @@ class MetDataController extends Controller
                         ->withErrors($errors);
                 }
 
+                if (is_file($path . $fileName)) {
+                    $errors = ['files' => '請勿上傳系統已有的資料!'];
+                    return redirect()->back()
+                        ->withErrors($errors);
+                }
+
                 if (substr($fileName, 0, 7) !== $time) {
                     $lastYear = (string) ((int) $year - 1);
                     $nextYear = (string) ((int) $year + 1);
@@ -125,12 +142,6 @@ class MetDataController extends Controller
                         continue;
                     }
                     $errors = ['files' => '請確認上傳的檔案日期'];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-
-                if (is_file($path . $fileName)) {
-                    $errors = ['files' => '請勿上傳系統已有的資料!'];
                     return redirect()->back()
                         ->withErrors($errors);
                 }
@@ -153,18 +164,18 @@ class MetDataController extends Controller
                         ->withErrors($errors);
                 }
 
+                if (is_file($path . $fileName)) {
+                    $errors = ['files' => '請勿上傳系統已有的資料!'];
+                    return redirect()->back()
+                        ->withErrors($errors);
+                }
+
                 if (substr($fileName, 11, 7) !== $time) {
                     $lastYear = (string) ((int) $year - 1);
                     // if ($month == '1' && substr($fileName, 11, 10) == "{$lastYear}-12-31") {
                     //     continue;
                     // }
                     $errors = ['files' => '請確認上傳的檔案日期'];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-
-                if (is_file($path . $fileName)) {
-                    $errors = ['files' => '請勿上傳系統已有的資料!'];
                     return redirect()->back()
                         ->withErrors($errors);
                 }
@@ -184,12 +195,12 @@ class MetDataController extends Controller
             if ($var == 'T2') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $path = public_path() . "\MetData\\$datatype\\$var\\$fileName";
+                    $path = public_path() . "\MetData\\$datatype\\$var\\";
                     $time = date("Y-m", strtotime("{$year}-{$month}-01"));
                     $file->move($path, $fileName);
                     Met_obsdata_t2::create([
                         'Filename' => $fileName,
-                        'Path'  => $path,
+                        'Path'  => $path . $fileName,
                         'year' => $year,
                         'month' => $month,
                         'day'  => substr($time, 5, 2),
@@ -201,12 +212,12 @@ class MetDataController extends Controller
             if ($var == 'WS') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $path = public_path() . "\MetData\\$datatype\\$var\\$fileName";
+                    $path = public_path() . "\MetData\\$datatype\\$var\\";
                     $time = date("Y-m", strtotime("{$year}-{$month}-01"));
                     $file->move($path, $fileName);
                     Met_obsdata_ws::create([
                         'Filename' => $fileName,
-                        'Path'  => $path,
+                        'Path'  => $path . $fileName,
                         'year' => $year,
                         'month' => $month,
                         'day'  => substr($time, 5, 2),
@@ -218,12 +229,12 @@ class MetDataController extends Controller
             if ($var == 'WD') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $path = public_path() . "\MetData\\$datatype\\$var\\$fileName";
+                    $path = public_path() . "\MetData\\$datatype\\$var\\";
                     $time = date("Y-m", strtotime("{$year}-{$month}-01"));
                     $file->move($path, $fileName);
                     Met_obsdata_wd::create([
                         'Filename' => $fileName,
-                        'Path'  => $path,
+                        'Path'  => $path . $fileName,
                         'year' => $year,
                         'month' => $month,
                         'day'  => substr($time, 5, 2),
@@ -233,7 +244,7 @@ class MetDataController extends Controller
             }
 
 
-            return redirect(route('admin.UploatMet', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
+            return redirect(route('admin.MetMonthData', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
         } elseif ($datatype == 'Sim') {
 
             if ($this->SimCheckUpload($request, $year, $month, $datatype, $var) !== 'isok') {
@@ -243,12 +254,12 @@ class MetDataController extends Controller
             if ($var == 'T2') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $path = public_path() . "\MetData\\$datatype\\$var\\$fileName";
+                    $path = public_path() . "\MetData\\$datatype\\$var\\";
                     $time = date("Y-m", strtotime("{$year}-{$month}-01"));
                     $file->move($path, $fileName);
                     Met_simdata_t2::create([
                         'Filename' => $fileName,
-                        'Path'  => $path,
+                        'Path'  => $path . $fileName,
                         'year' => $year,
                         'month' => $month,
                         'day'  => substr($time, 19, 2),
@@ -260,12 +271,12 @@ class MetDataController extends Controller
             if ($var == 'WS') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $path = public_path() . "\MetData\\$datatype\\$var\\$fileName";
+                    $path = public_path() . "\MetData\\$datatype\\$var\\";
                     $time = date("Y-m", strtotime("{$year}-{$month}-01"));
                     $file->move($path, $fileName);
                     Met_simdata_ws::create([
                         'Filename' => $fileName,
-                        'Path'  => $path,
+                        'Path'  => $path . $fileName,
                         'year' => $year,
                         'month' => $month,
                         'day'  => substr($time, 19, 2),
@@ -277,12 +288,12 @@ class MetDataController extends Controller
             if ($var == 'WD') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
-                    $path = public_path() . "\MetData\\$datatype\\$var\\$fileName";
+                    $path = public_path() . "\MetData\\$datatype\\$var\\";
                     $time = date("Y-m", strtotime("{$year}-{$month}-01"));
                     $file->move($path, $fileName);
                     Met_simdata_wd::create([
                         'Filename' => $fileName,
-                        'Path'  => $path,
+                        'Path'  => $path . $fileName,
                         'year' => $year,
                         'month' => $month,
                         'day'  => substr($time, 19, 2),
@@ -292,7 +303,43 @@ class MetDataController extends Controller
             }
 
 
-            return redirect(route('admin.UploatMet', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
+            return redirect(route('admin.MetMonthData', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
+        }
+    }
+
+    function download(Request $request, $data, $datatype, $var)
+    {
+        if ($datatype == 'Obs') {
+            if ($var == 'T2') {
+                $zip_file = 'TWSimEvaFile.zip';
+                $zip = new \ZipArchive();
+                $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+                
+                $Metdata = Met_obsdata_t2::where('id', $data)->first();
+                $zip->addFile($Metdata->Path,$Metdata->Filename);
+                $zip->close();
+
+                return response()->download($zip_file);
+                // return response()->download($Metdata->Path);
+
+            } elseif ($var == 'WS') {
+                $Metdata = Met_obsdata_ws::where('id', $data)->first();
+                return response()->download($Metdata->Path);
+            } elseif ($var == 'WD') {
+                $Metdata = Met_obsdata_wd::where('id', $data)->first();
+                return response()->download($Metdata->Path);
+            }
+        } elseif ($datatype == 'Sim') {
+            if ($var == 'T2') {
+                $Metdata = Met_simdata_t2::where('id', $data)->first();
+                return response()->download($Metdata->Path);
+            } elseif ($var == 'WS') {
+                $Metdata = Met_simdata_ws::where('id', $data)->first();
+                return response()->download($Metdata->Path);
+            } elseif ($var == 'WD') {
+                $Metdata = Met_simdata_wd::where('id', $data)->first();
+                return response()->download($Metdata->Path);
+            }
         }
     }
 
@@ -343,5 +390,88 @@ class MetDataController extends Controller
         }
 
         return [$data, $datatype, $var];
+    }
+
+    function Multiple(Request $request,$method,$datatype,$var)
+    {
+        $dataIDs = $request->DataID;
+
+        if($method == 'download')
+        {
+            if( $datatype=='Obs')
+            {
+                $zip_file = 'TWSimEvaFile.zip';
+                $zip = new \ZipArchive();
+                $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+                if($var=='T2')
+                {
+                    foreach ($dataIDs as $dataID) {
+                        $data = Met_obsdata_t2::where('id',$dataID)->first();
+                        $zip->addFile($data->Path,$data->Filename);
+                    }
+                    $zip->close();
+                    return response()->download($zip_file);
+                }
+                elseif($var=='WS') 
+                {
+                    foreach ($dataIDs as $dataID) {
+                        $data = Met_obsdata_ws::where('id',$dataID)->first();
+                        $zip->addFile($data->Path,$data->Filename);
+                    }
+                    $zip->close();
+                    return response()->download($zip_file); 
+                }
+                elseif($var=='WD')
+                {
+                    foreach ($dataIDs as $dataID) {
+                        $data = Met_obsdata_wd::where('id',$dataID)->first();
+                        $zip->addFile($data->Path,$data->Filename);
+                    }
+                    $zip->close();
+                    return response()->download($zip_file); 
+                }
+            }
+            elseif( $datatype=='Sim')
+            {
+                $zip_file = 'TWSimEvaFile.zip';
+                $zip = new \ZipArchive();
+                $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+                if($var=='T2')
+                {
+                    foreach ($dataIDs as $dataID) {
+                        $data = Met_simdata_t2::where('id',$dataID)->first();
+                        $zip->addFile($data->Path,$data->Filename);
+                    }
+                    $zip->close();
+                    return response()->download($zip_file);
+                }
+                elseif($var=='WS') 
+                {
+                    foreach ($dataIDs as $dataID) {
+                        $data = Met_simdata_ws::where('id',$dataID)->first();
+                        $zip->addFile($data->Path,$data->Filename);
+                    }
+                    $zip->close();
+                    return response()->download($zip_file); 
+                }
+                elseif($var=='WD')
+                {
+                    foreach ($dataIDs as $dataID) {
+                        $data = Met_simdata_wd::where('id',$dataID)->first();
+                        $zip->addFile($data->Path,$data->Filename);
+                    }
+                    $zip->close();
+                    return response()->download($zip_file); 
+                }
+            }
+        }
+        elseif ($method == 'delete') {
+            foreach ($dataIDs as $dataID)
+            {
+                $this->MetDelete($request,$dataID,$datatype,$var);
+            }
+            return redirect()->back();
+        }
+        
     }
 }

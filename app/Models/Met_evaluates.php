@@ -8,7 +8,7 @@ class Met_evaluates extends Model
 {
     protected $table = 'met_evaluates';
     protected $fillable = [
-        'Time_Period','Path'
+        'Time_Period','Path','Execution_Time'
     ];
 
     public function user()

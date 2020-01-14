@@ -60,6 +60,7 @@
   <main id='main' class="red lighten-5">
     @yield("content")
   </main>
+  @include("backend.Layouts.footer")
 </body>
 
 </html>
