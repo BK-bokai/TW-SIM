@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('.delEva').on('click',function(){
+  $('.delEva').on('click', function () {
     let url = $(this).attr('url');
     let id = $(this).attr('btnid')
 
@@ -25,8 +25,8 @@ $(document).ready(function () {
             console.log(data);
             console.log("ajax success");
           },
-          error: function (data) {
-            console.log("ajax fail");
+          error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
           },
         })
         Swal.fire(

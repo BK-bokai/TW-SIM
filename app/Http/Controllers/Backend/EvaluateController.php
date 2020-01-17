@@ -40,6 +40,11 @@ class EvaluateController extends Controller
         $year = $request->year;
         $start_month = $request->start_month;
         $end_month   = $request->end_month;
+        if($start_month>$end_month)
+        {
+            return redirect(route('admin.Evaluate'))->with('error', '您輸入的時間有誤'); 
+        }
+         
 
         $end = date("Y-m-d", strtotime("{$year}-{$end_month}-01"));
         $end = date("Y-m-d", strtotime("{$end} + 1 month - 1day "));
@@ -60,7 +65,7 @@ class EvaluateController extends Controller
             $Evaluate_task = new Met_evaluates([
                 'Time_Period' => $start . '_' . $end,
                 'Path' => $path,
-                'Execution_Time' => $period * 65
+                'Execution_Time' => $period * 210
             ]);
             Auth::user()->Met_evaluates()->save($Evaluate_task);
 
@@ -73,7 +78,7 @@ class EvaluateController extends Controller
             }
 
             $this->redis->set($start . '_' . $end, 'processing');
-            $this->redis->expire($start . '_' . $end, ($period * 65) + $waitTime);
+            $this->redis->expire($start . '_' . $end, ($period * 210) + $waitTime);
 
             return redirect(route('admin.Evaluate'));
         }
@@ -84,15 +89,55 @@ class EvaluateController extends Controller
     function download(Request $request, $Time_Period)
     {
         $Eva_data = Met_evaluates::where('Time_Period', $Time_Period)->first();
-        return response()->download($Eva_data->Path);
+        $Path = $Eva_data->Path;
+        $Path = explode("\\", $Path);
+        array_pop($Path);
+        $Path = join("\\", $Path) . "\\Result\\";
+        $zip_fileName = 'TWSimEvaFile.zip';
+        $zip_file = $this->zipfile($zip_fileName, $Path);
+        return response()->download($zip_file);
     }
+
+    function zipfile($zipFileName, $Path)
+    {
+        $zip_file = $zipFileName;
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $predir = Null;
+        $this->addFileToZip($Path, $zip, $predir);
+        $zip->close();
+        return $zip_file;
+    }
+
+    function addFileToZip($Path, $zip, $predir)
+    {
+        $datas = scandir($Path);
+        foreach ($datas as $data) {
+            if ($data != "." && $data != "..") {
+                if (!is_dir($Path . $data)) {
+                    if (is_null($predir)) {
+                        $download = $Path . $data;
+                        $zip->addFile($download, $data);
+                    } else {
+                        $download = $Path . $data;
+                        $zip->addFile($download, $predir . '\\' . $data);
+                    }
+                } else {
+                    $this->addFileToZip($Path . $data . '\\', $zip, $data);
+                }
+            }
+        }
+    }
+
+
+
 
     function delete(Request $request, Met_evaluates $Met_eva)
     {
         $Path = $Met_eva->Path;
         $Path = explode("\\", $Path);
         array_pop($Path);
-        $Path = join("\\", $Path)."\\";
+        $Path = join("\\", $Path) . "\\";
         $this->deldir($Path);
         @rmdir($Path);
         // unlink($Met_eva->Path);
@@ -107,12 +152,12 @@ class EvaluateController extends Controller
             //掃描一個資料夾內的所有資料夾和檔案並返回陣列
             $p = scandir($path);
             foreach ($p as $val) {
-                //排除目錄中的.和..
+                // 排除目錄中的.和..
                 if ($val != "." && $val != "..") {
                     //如果是目錄則遞迴子目錄，繼續操作
                     if (is_dir($path . $val)) {
                         //子目錄中操作刪除資料夾和檔案
-                        deldir($path . $val . '/');
+                        $this->deldir($path . $val . '/');
                         //目錄清空後刪除空資料夾
                         @rmdir($path . $val . '/');
                     } else {

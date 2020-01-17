@@ -16,7 +16,11 @@ from lib.evaluate_WS_V2 import evaluate_WS
 from lib.evaluate_WD import evaluate_WD
 from lib.MergeTxt_obs import MergeTxt_obs
 from lib.MergeTxt_sim import MergeTxt_sim
+from lib.showimg_T2 import showimg_T2
+from lib.showimg_WS import showimg_WS
+from lib.showimg_WD import showimg_WD
 import MySQLdb
+import shutil
 
 
 t1 = time.clock()
@@ -34,9 +38,13 @@ rootdir = sys.argv[4]
 # workdir =rootpath + "\\result\\"+now+"_"+start+"-"+end
 # workdir =rootpath + "\\result\\"+start+"_"+end
 workdir = rootdir+"Evaluate\\"+now+"_"+start+"-"+end
+resultDir = rootdir+"Evaluate\\"+now+"_"+start+"-"+end+"\\Result"
 
 if not os.path.isdir(workdir):
     os.mkdir(workdir)
+
+if not os.path.isdir(resultDir):
+    os.mkdir(resultDir)
 
 
 obsfile_T2= MergeTxt_obs(start=start,end=end,workdir=workdir,rootdir=rootdir, var = 'T2')
@@ -54,7 +62,7 @@ WD_eva = evaluate_WD(obsfile=obsfile_WD,simfile=simfile_WD,workdir=workdir,start
 
 
 # 创建工作簿
-workbook = xlsxwriter.Workbook(workdir+'//'+start+'_'+end+'_evaluate.xlsx')
+workbook = xlsxwriter.Workbook(workdir+'\\'+start+'_'+end+'_evaluate.xlsx')
 for area,stons in WD_eva['domain'].items():
     # 创建工作表
     worksheet = workbook.add_worksheet(area)
@@ -94,6 +102,28 @@ for area,stons in WD_eva['domain'].items():
 workbook.close()
 
 
+
+mvdata={}
+obst2 = workdir+'\\'+'new_time_'+start+'_'+end+'_T2_obs.xlsx'
+obsws = workdir+'\\'+'new_time_'+start+'_'+end+'_WS_obs.xlsx'
+obswd = workdir+'\\'+'new_time_'+start+'_'+end+'_WD_obs.xlsx'
+simt2 = workdir+'\\'+'new_time_wrfout_d04_'+start+'_'+end+'_T2.xlsx'
+simws = workdir+'\\'+'new_time_wrfout_d04_'+start+'_'+end+'_WS.xlsx'
+simwd = workdir+'\\'+'new_time_wrfout_d04_'+start+'_'+end+'_WD.xlsx'
+eva = workdir+'\\'+start+'_'+end+'_evaluate.xlsx'
+
+shutil.copy2(eva, resultDir)
+shutil.copy2(obst2, resultDir+"\\"+start+'_'+end+'_T2_obs.xlsx')
+shutil.copy2(obsws, resultDir+"\\"+start+'_'+end+'_WS_obs.xlsx')
+shutil.copy2(obswd, resultDir+"\\"+start+'_'+end+'_WD_obs.xlsx')
+
+shutil.copy2(simt2, resultDir+"\\"+start+'_'+end+'_T2_sim.xlsx')
+shutil.copy2(simws, resultDir+"\\"+start+'_'+end+'_WS_sim.xlsx')
+shutil.copy2(simwd, resultDir+"\\"+start+'_'+end+'_WD_sim.xlsx')
+
+showimg_T2(resultDir=resultDir,start=start, end=end, obsdata=start+'_'+end+'_T2_obs.xlsx', simdata=start+'_'+end+'_T2_sim.xlsx')
+showimg_WS(resultDir=resultDir,start=start, end=end, obsdata=start+'_'+end+'_WS_obs.xlsx', simdata=start+'_'+end+'_WS_sim.xlsx')
+showimg_WD(resultDir=resultDir,start=start, end=end, obsdata=start+'_'+end+'_WD_obs.xlsx', simdata=start+'_'+end+'_WD_sim.xlsx')
 
 #connect() 方法用於建立資料庫的連線，裡面可以指定引數：使用者名稱，密碼，主機等資訊。
 #這只是連線到了資料庫，要想操作資料庫需要建立遊標。

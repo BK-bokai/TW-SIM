@@ -33,7 +33,7 @@ def MergeTxt_obs(start, end, workdir, rootdir, var):
             rootdir+"Obs\\"+var+"\\"+filetimes[i]+"_"+var+"_obs.xlsx")
         # print(obs_in['times'][i])
         obs_out = pd.merge(obs_out, obs_in, how='outer')
-    newfile = filetimes[0]+'_'+filetimes[-1]+'_'+var+'_obs.xlsx'
+    newfile = filetimes[0]+'_'+filetimes[-2]+'_'+var+'_obs.xlsx'
     obs_out.to_excel(workdir+"\\"+newfile, index=False)
     return newfile
 

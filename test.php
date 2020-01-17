@@ -22,7 +22,8 @@
             }
         }
     }
-    $path= "D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-13-14-05-19_2016-02-01-2016-03-31\\";
+    
+    $path= "D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-14-15-20-53_2016-12-01-2016-12-31\\";
     deldir($path);
     @rmdir($path);
     // print_r(scandir($path));

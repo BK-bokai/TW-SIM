@@ -60,7 +60,6 @@ $redis->connect("127.0.0.1","6379");
         {{ session('error') }}
     </p>
     @endif
-    @if (count($Evaluate_List) !== 0)
     <table class="highlight">
         <thead>
             <tr>
@@ -70,12 +69,14 @@ $redis->connect("127.0.0.1","6379");
                 <th>刪除</th>
             </tr>
         </thead>
+    @if (count($Evaluate_List) !== 0)
+
 
         @foreach($Evaluate_List as $Eva)
         <tbody id="{{$Eva->id}}">
             <tr>
                 <td>
-                {{ $loop->index +1 }}
+                    {{ $loop->index +1 }}
                 </td>
                 <td>
                     {{$Eva->Time_Period}}
@@ -84,77 +85,77 @@ $redis->connect("127.0.0.1","6379");
                     <a class="green-text" href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
                 </td>
                 <td>
-                    <a btnid="{{$Eva->id}}" class="red-text delEva"  href="javascript:void(0)" url="{{route('admin.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
+                    <a btnid="{{$Eva->id}}" class="red-text delEva" href="javascript:void(0)" url="{{route('admin.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
                 </td>
             </tr>
         </tbody>
 
         @endforeach
 
-        @if($First_unFinish !== null)
-        <tbody>
-            <td>
-                {{$First_unFinish->id}}
-            </td>
-            <td>
-                {{$First_unFinish->Time_Period}}
-            </td>
-            <td>
-                <p id="wait" time="{{$redis->ttl($First_unFinish->Time_Period)}}"> 待{{$redis->ttl($First_unFinish->Time_Period)}}秒後</p>
-                <p>執行完畢</p>
-            </td>
-            <script>
-                $(document).ready(function() {
-                    let obj = $('#wait');
-                    let time = parseInt(obj.attr('time')) * 1000;
-                    let MyCounter = function() {
-                        if (time <= 0) {
-                            window.location.reload()
-                        } else {
-                            console.log((time / 1000) + " sec...");
-                            obj.html(`待${time / 1000}秒後`);
-                            setTimeout(MyCounter, 1000);
-                        }
-                        time -= 1000;
-                    }
-                    MyCounter();
-                })
-            </script>
-        </tbody>
-        @endif
+            @endif
 
-        @foreach($unFinish_List as $job)
-        <tbody>
-            <td>
-                {{$job->id}}
-            </td>
-            <td>
-                {{$job->Time_Period}}
-            </td>
-            <td>
-                <p>等待先前已丟出</p>
-                <p>的工作執行完畢後，</p>
-                <p>此工作還須執行{{$job->Execution_Time}}
-                    秒</p>
-            </td>
-        </tbody>
-        @endforeach
+            @if($First_unFinish !== null)
+            <tbody>
+                <td>
+                    {{$First_unFinish->id}}
+                </td>
+                <td>
+                    {{$First_unFinish->Time_Period}}
+                </td>
+                <td>
+                    <p id="wait" time="{{$redis->ttl($First_unFinish->Time_Period)}}"> 待{{$redis->ttl($First_unFinish->Time_Period)}}秒後</p>
+                    <p>執行完畢</p>
+                </td>
+                <script>
+                    $(document).ready(function() {
+                        let obj = $('#wait');
+                        let time = parseInt(obj.attr('time')) * 1000;
+                        let MyCounter = function() {
+                            if (time <= 0) {
+                                window.location.reload()
+                            } else {
+                                console.log((time / 1000) + " sec...");
+                                obj.html(`待${time / 1000}秒後`);
+                                setTimeout(MyCounter, 1000);
+                            }
+                            time -= 1000;
+                        }
+                        MyCounter();
+                    })
+                </script>
+            </tbody>
+            @endif
+
+            @foreach($unFinish_List as $job)
+            <tbody>
+                <td>
+                    {{$job->id}}
+                </td>
+                <td>
+                    {{$job->Time_Period}}
+                </td>
+                <td>
+                    <p>等待先前已丟出</p>
+                    <p>的工作執行完畢後，</p>
+                    <p>此工作還須執行{{$job->Execution_Time}}
+                        秒</p>
+                </td>
+            </tbody>
+            @endforeach
     </table>
 
 
 </div>
 
-@else
-<h5 class=" teal-text text-lighten-2">暫時無任何性能評估</h6>
-    @endif
 
-    <script src="{{ asset('js/Evaluate.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('.tabs').tabs();
-        })
-    </script>
+
+<script src="{{ asset('js/Evaluate.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('.tabs').tabs();
+    })
+</script>
 
 
 
-    @endsection
+@endsection
