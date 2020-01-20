@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Evaluate_Tasks;
@@ -10,7 +11,8 @@ use App\Jobs\Met_Evaluate;
 use App\Services\EvaluateService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
-
+use Excel;
+use App\Imports\MetEvaluateImport;
 
 class EvaluateController extends Controller
 {
@@ -33,6 +35,15 @@ class EvaluateController extends Controller
             $unFinish_List = Met_evaluates::where('Finish', 0)->orderBy('created_at')->get();
         }
         return view('backend.Evaluate', compact('Evaluate_List', 'First_unFinish', 'unFinish_List'));
+    }
+
+    function detail(Request $request,Met_evaluates $Met_evaluates)
+    {
+        // return $Met_evaluates;
+        $data = Excel::toArray(new MetEvaluateImport, $Met_evaluates->Path);
+        $data= $data[0];
+        return view('backend.detailEvaluate', compact('data'));
+
     }
 
     function evaluate(Request $request)
@@ -65,7 +76,7 @@ class EvaluateController extends Controller
             $Evaluate_task = new Met_evaluates([
                 'Time_Period' => $start . '_' . $end,
                 'Path' => $path,
-                'Execution_Time' => $period * 210
+                'Execution_Time' => $period * 145
             ]);
             Auth::user()->Met_evaluates()->save($Evaluate_task);
 
@@ -78,7 +89,7 @@ class EvaluateController extends Controller
             }
 
             $this->redis->set($start . '_' . $end, 'processing');
-            $this->redis->expire($start . '_' . $end, ($period * 210) + $waitTime);
+            $this->redis->expire($start . '_' . $end, ($period * 145) + $waitTime);
 
             return redirect(route('admin.Evaluate'));
         }

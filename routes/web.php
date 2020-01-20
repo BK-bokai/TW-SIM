@@ -39,6 +39,7 @@ Route::get('/FBcallback/{provider}', 'Auth\FbLoginController@callback');
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/Evaluate','backend\EvaluateController@index')->name('Evaluate');
+    Route::get('/Evaluate/{Met_evaluates}','backend\EvaluateController@detail')->name('detail_Evaluate');
     Route::post('/post/Evaluate', 'backend\EvaluateController@evaluate')->name('do_Evaluate');
     Route::get('/Evaluate/download/{Time_Period}','backend\EvaluateController@download')->name('download_Evaluate');
     Route::delete('/Evaluate/delete/{Met_eva}','backend\EvaluateController@delete')->name('delete_Evaluate');

@@ -67,6 +67,7 @@ $redis->connect("127.0.0.1","6379");
                 <th>時間區間</th>
                 <th>下載</th>
                 <th>刪除</th>
+                <th>查看結果</th>
             </tr>
         </thead>
     @if (count($Evaluate_List) !== 0)
@@ -86,6 +87,10 @@ $redis->connect("127.0.0.1","6379");
                 </td>
                 <td>
                     <a btnid="{{$Eva->id}}" class="red-text delEva" href="javascript:void(0)" url="{{route('admin.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
+                </td>
+                <td>
+                
+                    <a class="green-text" href="{{route('admin.detail_Evaluate',['Met_evaluates'=>$Eva->id])}}">查看詳情</a>
                 </td>
             </tr>
         </tbody>

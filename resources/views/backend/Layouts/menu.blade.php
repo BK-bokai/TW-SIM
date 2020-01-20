@@ -3,7 +3,7 @@
       <div class="nav-wrapper">
          <a href="#" class="brand-logo">
             <div>
-               <i class="large material-icons">account_circle</i>
+               <!-- <i class="large material-icons">account_circle</i> -->
                台灣空氣品質模式數據平台
             </div>
          </a>
