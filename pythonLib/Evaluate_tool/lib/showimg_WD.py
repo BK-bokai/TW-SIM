@@ -66,7 +66,8 @@ def showimg_WD(resultDir,start, end, obsdata, simdata):
 
         plt.close('all')
         plt.rcParams['figure.dpi'] = 500
-        plt.figure(figsize=(12, 8))
+        # plt.figure(figsize=(12, 8))
+        plt.figure(figsize=(12, 12))
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)
         plt.plot(range(0,24,1), stons_obs_avg[ston][0:24],'o',

@@ -27,7 +27,7 @@ class EvaluateController extends Controller
 
     function index()
     {
-        $Evaluate_List = Met_evaluates::where('Finish', 1)->get();
+        $Evaluate_List = Met_evaluates::where('Finish', 1)->orderBy('Time_Period')->get();
         $First_unFinish = Met_evaluates::where('Finish', 0)->orderBy('created_at')->first();
         if ($First_unFinish !== null) {
             $unFinish_List = Met_evaluates::where('Finish', 0)->whereNotIn('id', [$First_unFinish->id])->orderBy('created_at')->get();
@@ -41,9 +41,45 @@ class EvaluateController extends Controller
     {
         // return $Met_evaluates;
         $data = Excel::toArray(new MetEvaluateImport, $Met_evaluates->Path);
-        $data= $data[0];
-        return view('backend.detailEvaluate', compact('data'));
+        $id = $Met_evaluates->id;
+        // return $data;
+        $Time_Period = $Met_evaluates->Time_Period;
+        return view('backend.detailEvaluate', compact('data','id','Time_Period'));
 
+    }
+
+    function detailImg(Request $request,$area,Met_evaluates $Met_evaluates)
+    {
+        $Path =  $Met_evaluates->Path;
+        $Path = explode("\\", $Path);
+        $Path = join("\\", array_slice($Path, 7, 4)).'\\imgs'; 
+        $T2Path = $Path.'\\T2';
+        $WSPath = $Path.'\\WS';
+        $WDPath = $Path.'\\WD';
+        foreach(scandir($T2Path) as $imgs)
+        {
+            if(strpos($imgs,$area))
+            {
+                $T2img = $T2Path.'\\'.$imgs;
+            }
+        }
+        foreach(scandir($WSPath) as $imgs)
+        {
+            if(strpos($imgs,$area))
+            {
+                $WSimg = $WSPath.'\\'.$imgs;
+            }
+        }
+        foreach(scandir($WDPath) as $imgs)
+        {
+            if(strpos($imgs,$area))
+            {
+                $WDimg = $WDPath.'\\'.$imgs;
+            }
+        }
+        $id = $Met_evaluates->id;
+        $Time_Period = $Met_evaluates->Time_Period;
+        return view('backend.DetailImglEvaluate',compact('T2img','WSimg','WDimg','id','area','Time_Period'));
     }
 
     function evaluate(Request $request)
@@ -71,12 +107,12 @@ class EvaluateController extends Controller
             $rootdir = public_path() . "\MetData\\";
             $this->EvaluateService->Met_Evaluate($now, $start, $end, $rootdir);
             $period = ((int) substr($end, 5, 2) - (int) substr($start, 5, 2)) + 1; #經過幾個月
-            $path = public_path() . "\MetData\Evaluate\\" . $now . '_' . $start . "-" . $end . "\\" . $start . '_' . $end . '_evaluate.xlsx';
+            $path = public_path() . "\MetData\Evaluate\\" . $now . '_' . $start . "-" . $end . "\\Result\\" . $start . '_' . $end . '_evaluate.xlsx';
 
             $Evaluate_task = new Met_evaluates([
                 'Time_Period' => $start . '_' . $end,
                 'Path' => $path,
-                'Execution_Time' => $period * 145
+                'Execution_Time' => $period * 215
             ]);
             Auth::user()->Met_evaluates()->save($Evaluate_task);
 
@@ -89,7 +125,7 @@ class EvaluateController extends Controller
             }
 
             $this->redis->set($start . '_' . $end, 'processing');
-            $this->redis->expire($start . '_' . $end, ($period * 145) + $waitTime);
+            $this->redis->expire($start . '_' . $end, ($period * 215) + $waitTime);
 
             return redirect(route('admin.Evaluate'));
         }
@@ -103,7 +139,8 @@ class EvaluateController extends Controller
         $Path = $Eva_data->Path;
         $Path = explode("\\", $Path);
         array_pop($Path);
-        $Path = join("\\", $Path) . "\\Result\\";
+        $Path = join("\\", $Path) .'\\';
+        // return $Path;
         $zip_fileName = 'TWSimEvaFile.zip';
         $zip_file = $this->zipfile($zip_fileName, $Path);
         return response()->download($zip_file);

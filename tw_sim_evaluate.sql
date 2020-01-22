@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2020-01-10 10:50:40
+-- 產生時間： 2020-01-22 10:24:26
 -- 伺服器版本： 10.3.16-MariaDB
 -- PHP 版本： 7.3.7
 
@@ -66,25 +66,19 @@ CREATE TABLE `met_evaluates` (
   `Finish` tinyint(1) NOT NULL DEFAULT 0,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `Execution_Time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- 傾印資料表的資料 `met_evaluates`
 --
 
-INSERT INTO `met_evaluates` (`id`, `Time_Period`, `Path`, `Finish`, `user_id`, `created_at`, `updated_at`) VALUES
-(5, '2016-01-01_2016-01-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-16-27-03_2016-01-01-2016-01-31\\2016-01-01_2016-01-31_evaluate.xlsx', 1, 8, '2020-01-10 08:27:03', '2020-01-10 08:27:03'),
-(6, '2016-02-01_2016-02-29', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-16-31-50_2016-02-01-2016-02-29\\2016-02-01_2016-02-29_evaluate.xlsx', 1, 8, '2020-01-10 08:31:50', '2020-01-10 08:31:50'),
-(7, '2016-03-01_2016-03-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-16-34-18_2016-03-01-2016-03-31\\2016-03-01_2016-03-31_evaluate.xlsx', 1, 8, '2020-01-10 08:34:18', '2020-01-10 08:34:18'),
-(8, '2016-04-01_2016-04-30', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-16-58-39_2016-04-01-2016-04-30\\2016-04-01_2016-04-30_evaluate.xlsx', 1, 8, '2020-01-10 08:58:39', '2020-01-10 08:58:39'),
-(9, '2016-05-01_2016-05-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-00-52_2016-05-01-2016-05-31\\2016-05-01_2016-05-31_evaluate.xlsx', 1, 8, '2020-01-10 09:00:52', '2020-01-10 09:00:52'),
-(10, '2016-06-01_2016-06-30', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-02-18_2016-06-01-2016-06-30\\2016-06-01_2016-06-30_evaluate.xlsx', 1, 8, '2020-01-10 09:02:18', '2020-01-10 09:02:18'),
-(11, '2016-07-01_2016-07-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-18-52_2016-07-01-2016-07-31\\2016-07-01_2016-07-31_evaluate.xlsx', 1, 8, '2020-01-10 09:18:52', '2020-01-10 09:18:52'),
-(12, '2016-08-01_2016-08-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-18-56_2016-08-01-2016-08-31\\2016-08-01_2016-08-31_evaluate.xlsx', 1, 8, '2020-01-10 09:18:56', '2020-01-10 09:18:56'),
-(13, '2016-09-01_2016-09-30', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-19-01_2016-09-01-2016-09-30\\2016-09-01_2016-09-30_evaluate.xlsx', 1, 8, '2020-01-10 09:19:01', '2020-01-10 09:19:01'),
-(14, '2016-01-01_2016-12-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-23-29_2016-01-01-2016-12-31\\2016-01-01_2016-12-31_evaluate.xlsx', 0, 8, '2020-01-10 09:23:29', '2020-01-10 09:23:29'),
-(15, '2016-11-01_2016-11-30', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-10-17-23-34_2016-11-01-2016-11-30\\2016-11-01_2016-11-30_evaluate.xlsx', 0, 8, '2020-01-10 09:23:34', '2020-01-10 09:23:34');
+INSERT INTO `met_evaluates` (`id`, `Time_Period`, `Path`, `Finish`, `user_id`, `created_at`, `updated_at`, `Execution_Time`) VALUES
+(68, '2016-08-01_2016-08-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-22-14-23-01_2016-08-01-2016-08-31\\Result\\2016-08-01_2016-08-31_evaluate.xlsx', 1, 8, '2020-01-22 06:23:01', '2020-01-22 06:23:01', 145),
+(69, '2016-01-01_2016-01-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-22-14-27-06_2016-01-01-2016-01-31\\Result\\2016-01-01_2016-01-31_evaluate.xlsx', 1, 8, '2020-01-22 06:27:06', '2020-01-22 06:27:06', 145),
+(70, '2016-02-01_2016-02-29', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-22-14-30-56_2016-02-01-2016-02-29\\Result\\2016-02-01_2016-02-29_evaluate.xlsx', 1, 8, '2020-01-22 06:30:56', '2020-01-22 06:30:56', 215),
+(71, '2016-03-01_2016-03-31', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-22-17-08-20_2016-03-01-2016-03-31\\Result\\2016-03-01_2016-03-31_evaluate.xlsx', 1, 8, '2020-01-22 09:08:20', '2020-01-22 09:08:20', 215);
 
 -- --------------------------------------------------------
 
@@ -109,7 +103,6 @@ CREATE TABLE `met_obsdata_t2` (
 --
 
 INSERT INTO `met_obsdata_t2` (`id`, `Filename`, `Path`, `year`, `month`, `day`, `date`, `created_at`, `updated_at`) VALUES
-(189, '2016-01-01_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-01-01_T2_obs.xlsx', '2016', '1', '01', '2016-01-01', '2020-01-10 01:50:18', '2020-01-10 04:11:49'),
 (190, '2016-01-02_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-01-02_T2_obs.xlsx', '2016', '1', '01', '2016-01-02', '2020-01-10 01:50:18', '2020-01-10 04:11:49'),
 (191, '2016-01-03_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-01-03_T2_obs.xlsx', '2016', '1', '01', '2016-01-03', '2020-01-10 01:50:18', '2020-01-10 04:11:49'),
 (192, '2016-01-04_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-01-04_T2_obs.xlsx', '2016', '1', '01', '2016-01-04', '2020-01-10 01:50:18', '2020-01-10 04:11:49'),
@@ -345,15 +338,12 @@ INSERT INTO `met_obsdata_t2` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (485, '2016-08-21_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-21_T2_obs.xlsx', '2016', '8', '08', '2016-08-21', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
 (486, '2016-08-22_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-22_T2_obs.xlsx', '2016', '8', '08', '2016-08-22', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
 (487, '2016-08-23_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-23_T2_obs.xlsx', '2016', '8', '08', '2016-08-23', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
-(488, '2016-08-24_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-24_T2_obs.xlsx', '2016', '8', '08', '2016-08-24', '2020-01-10 02:13:14', '2020-01-10 04:11:50');
+(488, '2016-08-24_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-24_T2_obs.xlsx', '2016', '8', '08', '2016-08-24', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
+(489, '2016-08-25_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-25_T2_obs.xlsx', '2016', '8', '08', '2016-08-25', '2020-01-10 02:13:14', '2020-01-10 04:11:50');
 INSERT INTO `met_obsdata_t2` (`id`, `Filename`, `Path`, `year`, `month`, `day`, `date`, `created_at`, `updated_at`) VALUES
-(489, '2016-08-25_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-25_T2_obs.xlsx', '2016', '8', '08', '2016-08-25', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
 (490, '2016-08-26_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-26_T2_obs.xlsx', '2016', '8', '08', '2016-08-26', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
 (491, '2016-08-27_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-27_T2_obs.xlsx', '2016', '8', '08', '2016-08-27', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
 (492, '2016-08-28_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-28_T2_obs.xlsx', '2016', '8', '08', '2016-08-28', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
-(493, '2016-08-29_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-29_T2_obs.xlsx', '2016', '8', '08', '2016-08-29', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
-(494, '2016-08-30_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-30_T2_obs.xlsx', '2016', '8', '08', '2016-08-30', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
-(495, '2016-08-31_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-31_T2_obs.xlsx', '2016', '8', '08', '2016-08-31', '2020-01-10 02:13:14', '2020-01-10 04:11:50'),
 (496, '2016-09-01_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-09-01_T2_obs.xlsx', '2016', '9', '09', '2016-09-01', '2020-01-10 02:14:04', '2020-01-10 04:11:50'),
 (497, '2016-09-02_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-09-02_T2_obs.xlsx', '2016', '9', '09', '2016-09-02', '2020-01-10 02:14:04', '2020-01-10 04:11:50'),
 (498, '2016-09-03_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-09-03_T2_obs.xlsx', '2016', '9', '09', '2016-09-03', '2020-01-10 02:14:04', '2020-01-10 04:11:50'),
@@ -476,7 +466,11 @@ INSERT INTO `met_obsdata_t2` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (615, '2016-12-29_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-12-29_T2_obs.xlsx', '2016', '12', '12', '2016-12-29', '2020-01-10 02:17:26', '2020-01-10 04:11:50'),
 (616, '2016-12-30_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-12-30_T2_obs.xlsx', '2016', '12', '12', '2016-12-30', '2020-01-10 02:17:26', '2020-01-10 04:11:50'),
 (617, '2016-12-31_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-12-31_T2_obs.xlsx', '2016', '12', '12', '2016-12-31', '2020-01-10 02:17:26', '2020-01-10 04:11:50'),
-(620, '2017-01-01_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2017-01-01_T2_obs.xlsx', '2016', '12', '12', '2017-01-01', '2020-01-10 07:36:20', '2020-01-10 07:36:20');
+(622, '2017-01-01_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2017-01-01_T2_obs.xlsx', '2016', '12', '12', '2017-01-01', '2020-01-13 05:58:09', '2020-01-13 05:58:09'),
+(624, '2016-01-01_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-01-01_T2_obs.xlsx', '2016', '1', '01', '2016-01-01', '2020-01-13 08:04:52', '2020-01-13 08:04:52'),
+(627, '2016-08-29_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-29_T2_obs.xlsx', '2016', '8', '08', '2016-08-29', '2020-01-14 03:13:06', '2020-01-14 03:13:06'),
+(628, '2016-08-30_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-30_T2_obs.xlsx', '2016', '8', '08', '2016-08-30', '2020-01-14 03:13:06', '2020-01-14 03:13:06'),
+(629, '2016-08-31_T2_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\T2\\2016-08-31_T2_obs.xlsx', '2016', '8', '08', '2016-08-31', '2020-01-14 03:13:06', '2020-01-14 03:13:06');
 
 -- --------------------------------------------------------
 
@@ -837,7 +831,6 @@ INSERT INTO `met_obsdata_wd` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (334, '2016-11-28_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-11-28_WD_obs.xlsx', '2016', '11', '11', '2016-11-28', '2020-01-10 02:15:50', '2020-01-10 04:12:38'),
 (335, '2016-11-29_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-11-29_WD_obs.xlsx', '2016', '11', '11', '2016-11-29', '2020-01-10 02:15:50', '2020-01-10 04:12:38'),
 (336, '2016-11-30_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-11-30_WD_obs.xlsx', '2016', '11', '11', '2016-11-30', '2020-01-10 02:15:50', '2020-01-10 04:12:38'),
-(337, '2016-12-01_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-01_WD_obs.xlsx', '2016', '12', '12', '2016-12-01', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
 (338, '2016-12-02_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-02_WD_obs.xlsx', '2016', '12', '12', '2016-12-02', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
 (339, '2016-12-03_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-03_WD_obs.xlsx', '2016', '12', '12', '2016-12-03', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
 (340, '2016-12-04_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-04_WD_obs.xlsx', '2016', '12', '12', '2016-12-04', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
@@ -868,7 +861,8 @@ INSERT INTO `met_obsdata_wd` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (365, '2016-12-29_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-29_WD_obs.xlsx', '2016', '12', '12', '2016-12-29', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
 (366, '2016-12-30_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-30_WD_obs.xlsx', '2016', '12', '12', '2016-12-30', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
 (367, '2016-12-31_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-31_WD_obs.xlsx', '2016', '12', '12', '2016-12-31', '2020-01-10 02:17:52', '2020-01-10 04:12:38'),
-(369, '2017-01-01_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2017-01-01_WD_obs.xlsx', '2016', '12', '12', '2017-01-01', '2020-01-10 07:36:45', '2020-01-10 07:36:45');
+(370, '2017-01-01_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2017-01-01_WD_obs.xlsx', '2016', '12', '12', '2017-01-01', '2020-01-13 06:02:06', '2020-01-13 06:02:06'),
+(371, '2016-12-01_WD_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WD\\2016-12-01_WD_obs.xlsx', '2016', '12', '12', '2016-12-01', '2020-01-13 07:59:42', '2020-01-13 07:59:42');
 
 -- --------------------------------------------------------
 
@@ -1260,7 +1254,7 @@ INSERT INTO `met_obsdata_ws` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (428, '2016-12-29_WS_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WS\\2016-12-29_WS_obs.xlsx', '2016', '12', '12', '2016-12-29', '2020-01-10 02:17:39', '2020-01-10 04:12:10'),
 (429, '2016-12-30_WS_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WS\\2016-12-30_WS_obs.xlsx', '2016', '12', '12', '2016-12-30', '2020-01-10 02:17:39', '2020-01-10 04:12:10'),
 (430, '2016-12-31_WS_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WS\\2016-12-31_WS_obs.xlsx', '2016', '12', '12', '2016-12-31', '2020-01-10 02:17:39', '2020-01-10 04:12:10'),
-(432, '2017-01-01_WS_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WS\\2017-01-01_WS_obs.xlsx', '2016', '12', '12', '2017-01-01', '2020-01-10 07:36:34', '2020-01-10 07:36:34');
+(433, '2017-01-01_WS_obs.xlsx', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Obs\\WS\\2017-01-01_WS_obs.xlsx', '2016', '12', '12', '2017-01-01', '2020-01-13 06:01:54', '2020-01-13 06:01:54');
 
 -- --------------------------------------------------------
 
@@ -1650,8 +1644,8 @@ INSERT INTO `met_simdata_t2` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (363, 'wrfout_d04_2016-12-04_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\wrfout_d04_2016-12-04_T2.txt', '2016', '12', '0', '2016-12-04', '2020-01-10 02:28:18', '2020-01-10 04:11:15'),
 (364, 'wrfout_d04_2016-12-03_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\wrfout_d04_2016-12-03_T2.txt', '2016', '12', '0', '2016-12-03', '2020-01-10 02:28:18', '2020-01-10 04:11:15'),
 (365, 'wrfout_d04_2016-12-02_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\wrfout_d04_2016-12-02_T2.txt', '2016', '12', '0', '2016-12-02', '2020-01-10 02:28:18', '2020-01-10 04:11:15'),
-(366, 'wrfout_d04_2016-12-01_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\wrfout_d04_2016-12-01_T2.txt', '2016', '12', '0', '2016-12-01', '2020-01-10 02:28:18', '2020-01-10 04:11:15'),
-(367, 'wrfout_d04_2016-01-01_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\', '2016', '1', '0', '2016-01-01', '2020-01-10 04:19:11', '2020-01-10 04:19:11');
+(369, 'wrfout_d04_2016-12-01_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\wrfout_d04_2016-12-01_T2.txt', '2016', '12', '0', '2016-12-01', '2020-01-13 07:42:15', '2020-01-13 07:42:15'),
+(372, 'wrfout_d04_2016-01-01_T2.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\T2\\wrfout_d04_2016-01-01_T2.txt', '2016', '1', '0', '2016-01-01', '2020-01-14 02:53:37', '2020-01-14 02:53:37');
 
 -- --------------------------------------------------------
 
@@ -2042,7 +2036,7 @@ INSERT INTO `met_simdata_wd` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (364, 'wrfout_d04_2016-12-03_WD.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WD\\wrfout_d04_2016-12-03_WD.txt', '2016', '12', '0', '2016-12-03', '2020-01-10 02:28:42', '2020-01-10 04:10:04'),
 (365, 'wrfout_d04_2016-12-02_WD.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WD\\wrfout_d04_2016-12-02_WD.txt', '2016', '12', '0', '2016-12-02', '2020-01-10 02:28:42', '2020-01-10 04:10:04'),
 (366, 'wrfout_d04_2016-12-01_WD.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WD\\wrfout_d04_2016-12-01_WD.txt', '2016', '12', '0', '2016-12-01', '2020-01-10 02:28:42', '2020-01-10 04:10:04'),
-(367, 'wrfout_d04_2016-01-01_WD.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WD\\', '2016', '1', '0', '2016-01-01', '2020-01-10 04:20:20', '2020-01-10 04:20:20');
+(368, 'wrfout_d04_2016-01-01_WD.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WD\\wrfout_d04_2016-01-01_WD.txt', '2016', '1', '0', '2016-01-01', '2020-01-14 02:56:32', '2020-01-14 02:56:32');
 
 -- --------------------------------------------------------
 
@@ -2433,7 +2427,7 @@ INSERT INTO `met_simdata_ws` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (364, 'wrfout_d04_2016-12-03_WS.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WS\\wrfout_d04_2016-12-03_WS.txt', '2016', '12', '0', '2016-12-03', '2020-01-10 02:28:26', '2020-01-10 04:09:30'),
 (365, 'wrfout_d04_2016-12-02_WS.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WS\\wrfout_d04_2016-12-02_WS.txt', '2016', '12', '0', '2016-12-02', '2020-01-10 02:28:26', '2020-01-10 04:09:30'),
 (366, 'wrfout_d04_2016-12-01_WS.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WS\\wrfout_d04_2016-12-01_WS.txt', '2016', '12', '0', '2016-12-01', '2020-01-10 02:28:26', '2020-01-10 04:09:30'),
-(367, 'wrfout_d04_2016-01-01_WS.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WS\\', '2016', '1', '0', '2016-01-01', '2020-01-10 04:19:48', '2020-01-10 04:19:48');
+(368, 'wrfout_d04_2016-01-01_WS.txt', 'D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Sim\\WS\\wrfout_d04_2016-01-01_WS.txt', '2016', '1', '0', '2016-01-01', '2020-01-14 02:56:19', '2020-01-14 02:56:19');
 
 -- --------------------------------------------------------
 
@@ -2476,7 +2470,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (74, '2020_01_09_151508_create_met_simdata_ws_table', 12),
 (75, '2020_01_09_151518_create_met_simdata_wd_table', 12),
 (76, '2020_01_10_155354_create_met_evaluate_table', 13),
-(77, '2020_01_10_155809_create_met_evaluates_table', 14);
+(77, '2020_01_10_155809_create_met_evaluates_table', 14),
+(78, '2020_01_13_111921_add__execution_time_column_to_met_evaluate_table', 15);
 
 -- --------------------------------------------------------
 
@@ -2537,7 +2532,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `active`, `reset_token`, `provider`, `provider_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (7, 'root', '', '$2y$10$EVwLD8ugoVn4lv/HDSJmz.WMgrUK.83FENQ9hvYiQOKGafsjgoP8e', 'active', NULL, NULL, NULL, NULL, '2020-01-08 08:47:24', '2020-01-08 08:47:39'),
 (8, '劉博凱', '', '3001763766509673', 'active', NULL, 'facebook', '3001763766509673', NULL, '2020-01-09 01:02:16', '2020-01-09 01:02:16'),
-(9, 'bokai', 'bokai830124@gmail.com', '$2y$10$Di8r2l5.cz5/f3b32gkHZefimGGnF6oMnWxlABc7bNbdAfIYGukKW', 'active', NULL, NULL, NULL, NULL, '2020-01-10 09:04:51', '2020-01-10 09:05:19');
+(9, 'bokai', 'bokai830124@gmail.com', '$2y$10$Di8r2l5.cz5/f3b32gkHZefimGGnF6oMnWxlABc7bNbdAfIYGukKW', 'active', NULL, NULL, NULL, NULL, '2020-01-10 09:04:51', '2020-01-10 09:05:19'),
+(10, '劉敏涵', 'kukuso820617@yahoo.com.tw', '3035491446469081', 'active', NULL, 'facebook', '3035491446469081', NULL, '2020-01-17 07:35:28', '2020-01-17 07:35:28');
 
 --
 -- 已傾印資料表的索引
@@ -2639,55 +2635,55 @@ ALTER TABLE `failed_jobs`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_evaluates`
 --
 ALTER TABLE `met_evaluates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_obsdata_t2`
 --
 ALTER TABLE `met_obsdata_t2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=621;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=630;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_obsdata_wd`
 --
 ALTER TABLE `met_obsdata_wd`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=370;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=372;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_obsdata_ws`
 --
 ALTER TABLE `met_obsdata_ws`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=433;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=434;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_simdata_t2`
 --
 ALTER TABLE `met_simdata_t2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=368;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_simdata_wd`
 --
 ALTER TABLE `met_simdata_wd`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=368;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=369;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_simdata_ws`
 --
 ALTER TABLE `met_simdata_ws`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=368;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=369;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `test`
@@ -2699,7 +2695,7 @@ ALTER TABLE `test`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 已傾印資料表的限制式
