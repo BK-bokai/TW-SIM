@@ -34,7 +34,17 @@ $places =['鞍部', '淡水站', '竹子湖', '基隆', '台北', '新屋', '板
 
 </ul>
 
-<div class='container row evabox'>
+<div class=' row evabox'>
+    <div class='col s12 m4'>
+        <img class="responsive-img" src="{{ asset($T2img)}}">
+    </div>
+    <div class='col s12 m4'>
+        <img class="responsive-img" src="{{ asset($WSimg)}}">
+    </div>
+    <div class='col s12 m4'>
+        <img class="responsive-img" src="{{ asset($WDimg)}}">
+    </div>
+
     <!-- <div class="carousel carousel-slider center">
         <div class=" carousel-item white-text" href="#two!">
             <img class='responsive-img' src="{{ asset($T2img)}}">
@@ -46,7 +56,7 @@ $places =['鞍部', '淡水站', '竹子湖', '基隆', '台北', '新屋', '板
             <img class='responsive-img' src="{{ asset($WDimg)}}">
         </div>
     </div> -->
-    <div class="carousel carousel-slider center">
+    <!-- <div class="carousel carousel-slider center">
         <div class="carousel-item red white-text" href="#one!">
             <img class='responsive-img' src="{{ asset($T2img)}}">   
         </div>
@@ -56,7 +66,7 @@ $places =['鞍部', '淡水站', '竹子湖', '基隆', '台北', '新屋', '板
         <div class="carousel-item green white-text" href="#three!">
             <img class='responsive-img' src="{{ asset($T2img)}}">p>
         </div>
-    </div>
+    </div> -->
 
     <!-- <div class="my-slider">
         <div><img class="lazyload" loading="lazy" data-src="{{ asset($T2img)}}" width="320" height="240" alt=""></div>
