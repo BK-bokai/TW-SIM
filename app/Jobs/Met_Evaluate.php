@@ -36,9 +36,10 @@ class Met_Evaluate implements ShouldQueue
      */
     public function handle()
     {
-        $now = date("Y-m-d-H-i-s");
-        
-        $command=env('pycommand').' '.$this->start.' '.$this->end.' '.$this->now.' '.$this->rootdir;
+        $exefile = dirname(dirname(dirname(__FILE__)))."\\pythonLib\\Evaluate_tool\\Meteorology.py";
+        $pycommand = "py -3 ${exefile}";
+        // $command=env('pycommand').' '.$this->start.' '.$this->end.' '.$this->now.' '.$this->rootdir;
+        $command=$pycommand.' '.$this->start.' '.$this->end.' '.$this->now.' '.$this->rootdir;
         exec($command);
     }
 }

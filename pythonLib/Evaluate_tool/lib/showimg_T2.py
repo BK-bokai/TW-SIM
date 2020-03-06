@@ -43,7 +43,8 @@ def showimg_T2(resultDir,start, end, obsdata, simdata):
     i=0
 
 
-    plt.rcParams['font.sans-serif']=['SimHei']
+    # plt.rcParams['font.sans-serif']=['SimHei']
+    plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
     plt.rcParams['axes.unicode_minus']=False
 
     for key, value in obs.items() :
@@ -66,8 +67,8 @@ def showimg_T2(resultDir,start, end, obsdata, simdata):
 
         plt.close('all')
         plt.rcParams['figure.dpi'] = 500
-        # plt.figure(figsize=(12, 8))
-        plt.figure(figsize=(12, 12))
+        plt.figure(figsize=(12, 9))
+        # plt.figure(figsize=(12, 12))
 
         plt.xticks(fontsize=20)
         plt.yticks(fontsize=20)

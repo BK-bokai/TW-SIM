@@ -1,31 +1,8 @@
 <?php
-    function deldir($path)
-    {
-        //如果是目錄則繼續
-        if (is_dir($path)) {
-            //掃描一個資料夾內的所有資料夾和檔案並返回陣列
-            $p = scandir($path);
-            foreach ($p as $val) {
-                // 排除目錄中的.和..
-                if ($val != "." && $val != "..") {
-                    //如果是目錄則遞迴子目錄，繼續操作
-                    if (is_dir($path . $val)) {
-                        //子目錄中操作刪除資料夾和檔案
-                        deldir($path . $val . '/');
-                        //目錄清空後刪除空資料夾
-                        @rmdir($path . $val . '/');
-                    } else {
-                        //如果是檔案直接刪除
-                        unlink($path . $val);
-                    }
-                }
-            }
-        }
-    }
-    
-    $path= "D:\\bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-01-14-15-20-53_2016-12-01-2016-12-31\\";
-    deldir($path);
-    @rmdir($path);
-    // print_r(scandir($path));
-    
+// $Path = "C:\\Bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\Evaluate\\2020-03-06-11-34-50_2016-01-01-2016-01-31";
+// // $command = "rmdir  ${Path} -r -fo ";
+// $command = "rd ${Path} /s /q ";
+// exec($command);
+
+echo dirname(__FILE__); 
 ?>

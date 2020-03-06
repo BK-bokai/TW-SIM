@@ -23,7 +23,7 @@ import MySQLdb
 import shutil
 
 
-t1 = time.clock()
+t1 = time.perf_counter()
 
 # start = input("請輸入起始時間，ex:2016-01-01 : ")
 # end = input("請輸入結束時間，ex:2016-02-01 : ")
@@ -31,6 +31,10 @@ start = sys.argv[1]
 end   = sys.argv[2]
 now   = sys.argv[3]
 rootdir = sys.argv[4]
+# start = '2016-01-01'
+# end   = '2016-01-29'
+# now = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+# rootdir = "C:\\Bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\"
 
 # rootpath = os.path.dirname(os.path.abspath(__file__))
 
@@ -143,7 +147,7 @@ cur = conn.cursor()
 cur.execute("update met_evaluates set Finish='%d' where Time_Period = '%s'" % (True,start+'_'+end))
 conn.commit() 
  
-t2 = time.clock()
+t2 = time.perf_counter()
 print('你執行了:')
 print (t2-t1)
 

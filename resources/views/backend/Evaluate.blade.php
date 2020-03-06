@@ -19,8 +19,9 @@ $redis->connect("127.0.0.1","6379");
                     <td>
                         <label>
                             <select name='year'>
-                                <option value="2016">2016</option>
-                                <option value="2020">2020</option>
+                            @for ($year = 2016; $year <= (int)date("Y"); $year++)
+                                <option value="{{$year}}">{{$year}}</option>
+                            @endfor
                             </select>
                             <span>請選擇年分</span>
                         </label>
@@ -80,7 +81,7 @@ $redis->connect("127.0.0.1","6379");
                     {{ $loop->index +1 }}
                 </td>
                 <td>
-                    {{$Eva->Time_Period}}
+                    {{str_replace("_","至",$Eva->Time_Period)}}
                 </td>
                 <td>
                     <a class="green-text" href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
@@ -105,7 +106,7 @@ $redis->connect("127.0.0.1","6379");
                     {{$First_unFinish->id}}
                 </td>
                 <td>
-                    {{$First_unFinish->Time_Period}}
+                    {{str_replace("_","至",$First_unFinish->Time_Period)}}
                 </td>
                 <td>
                     <p id="wait" time="{{$redis->ttl($First_unFinish->Time_Period)}}"> 待{{$redis->ttl($First_unFinish->Time_Period)}}秒後</p>
@@ -120,7 +121,7 @@ $redis->connect("127.0.0.1","6379");
                                 window.location.reload()
                             } else {
                                 console.log((time / 1000) + " sec...");
-                                obj.html(`待${time / 1000}秒後`);
+                                obj.html(`約${time / 1000}秒後`);
                                 setTimeout(MyCounter, 1000);
                             }
                             time -= 1000;
@@ -137,7 +138,7 @@ $redis->connect("127.0.0.1","6379");
                     {{$job->id}}
                 </td>
                 <td>
-                    {{$job->Time_Period}}
+                    {{str_replace("_","至",$job->Time_Period)}}
                 </td>
                 <td>
                     <p>等待先前已丟出</p>
