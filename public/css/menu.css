@@ -1,0 +1,109 @@
+@import url(//fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+html {
+    height: 100%;
+    font-size: 22px;
+}
+
+body {
+    font-family: 'cwTeXYen', sans-serif;
+    margin: 0;
+    height: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.menu_box {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
+
+.menu_box>div>ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu_box>div>ul>li {
+    padding: 10px;
+}
+
+.menu_box>div>ul>li>a {
+    color: white;
+}
+
+.logo {
+    padding: 10px;
+    flex: 1 2 auto;
+    display: flex;
+    justify-content: flex-end;
+    /* color: white; */
+}
+
+.nav_item {
+    flex: 1 1 auto;
+}
+
+.menu_icon {
+    padding: 10px;
+    display: none;
+}
+
+.menu_icon>a:link {
+    color: white;
+}
+
+.menu_icon>a:visited {
+    color: white;
+}
+
+.left_nav {
+    color: black;
+}
+
+.left_nav {
+    display: none;
+    height: 100%;
+    width: 300px;
+    background-color: gray;
+    position: absolute;
+    top: 0;
+}
+
+.left_nav>div>ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+}
+
+.left_nav>div>ul>li {
+    padding: 10px;
+    display: flex;
+    padding-left: 30px;
+}
+
+@media screen and (max-width:700px) {
+    .nav_item {
+        display: none;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .menu_icon {
+        display: flex;
+    }
+}

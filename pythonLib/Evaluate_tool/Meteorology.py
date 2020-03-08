@@ -31,8 +31,8 @@ start = sys.argv[1]
 end   = sys.argv[2]
 now   = sys.argv[3]
 rootdir = sys.argv[4]
-# start = '2016-01-01'
-# end   = '2016-01-29'
+# start = '2016-12-01'
+# end   = '2016-12-31'
 # now = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
 # rootdir = "C:\\Bokai\\xampp\\htdocs\\php\\TW_SIM_Evaluate\\public\\MetData\\"
 

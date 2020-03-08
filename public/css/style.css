@@ -12,19 +12,23 @@ body {
     flex-direction: column;
 }
 
+
 main {
-    /* background-color: antiquewhite; */
-    /* padding-top: 5%; */
+    background-color: antiquewhite;
     flex: 1 0 auto;
     font-weight: bold;
 }
 
 /* 修好menu */
-
-nav.nav-extended.menu {
-    background-color: rgba(0, 0, 0, 0.8);
-    height: 100%;
+header {
+    display: flex;
 }
+nav.nav-extended{
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;           
+}
+
 
 a.brand-logo {
     margin: 0;
@@ -53,9 +57,7 @@ a.brand-logo {
     margin-top: 6%;
 }
 
-.nav-extended {
-    background-color: rgba(0, 0, 0, 0.8)
-}
+
 
 footer.page-footer {
     background-color: rgba(0, 0, 0, 0.8)

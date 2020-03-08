@@ -49,7 +49,11 @@
   
   <!--css樣式-->
 
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}" charset="utf-8">
+  <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}" charset="utf-8"> -->
+  <link rel="stylesheet" href="{{ asset('css/total.css') }}" charset="utf-8">
+  <link rel="stylesheet" href="{{ asset('css/menu.css') }}" charset="utf-8">
+
+  <link rel="stylesheet" href="{{ asset('css/input.css') }}" charset="utf-8">
 
   <!-- <link rel="Shortcut Icon" type="image/x-icon" href="img/PBLAP_logo_small_c.png"> -->
 

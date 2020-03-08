@@ -9,7 +9,7 @@ $redis->connect("127.0.0.1","6379");
 @section('title','任務清單')
 
 @section('content')
-<div class=" card row " style="margin-top: 0">
+<div class=" white row " style="margin-top: 0">
     <form method="post" action="{{route('admin.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table class="highlight centered">

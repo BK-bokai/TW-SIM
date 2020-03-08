@@ -1,0 +1,28 @@
+header {
+    display: flex;
+}
+
+nav.nav-extended{
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;           
+}
+
+
+a.brand-logo {
+    margin: 0;
+    margin-left: 2%;
+}
+
+.menu ul li a {
+    font-size: 20px;
+}
+
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo {
+        position: relative;
+        display: block;
+        text-align: center;
+    }
+}

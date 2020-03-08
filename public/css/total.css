@@ -1,0 +1,19 @@
+@import url(//fonts.googleapis.com/earlyaccess/cwtexyen.css);
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: antiquewhite;
+    font-family: 'cwTeXYen', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+
+main {
+    flex: 1 0 auto;
+    font-weight: bold;
+    /* margin-top: 5%; */
+}

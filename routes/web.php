@@ -15,6 +15,8 @@ Route::get('/', function () {
     return redirect(route('login'));
 });
 
+Route::get('/change_Path', 'change_Path_controller@index');
+
 
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
