@@ -1,5 +1,5 @@
 <br />
-<b>Fatal error</b>:  Uncaught TypeError: mb_detect_encoding() expects parameter 1 to be string, bool given in C:\Bokai\xampp\phpMyAdmin\libraries\classes\Util.php:1620
+<b>Fatal error</b>:  Uncaught TypeError: mb_detect_encoding() expects parameter 1 to be string, boolean given in C:\Bokai\xampp\phpMyAdmin\libraries\classes\Util.php:1620
 Stack trace:
 #0 C:\Bokai\xampp\phpMyAdmin\libraries\classes\Util.php(1620): mb_detect_encoding(false, 'UTF-8', true)
 #1 C:\Bokai\xampp\phpMyAdmin\libraries\classes\Plugins\Export\ExportSql.php(725): PhpMyAdmin\Util::localisedDate()
