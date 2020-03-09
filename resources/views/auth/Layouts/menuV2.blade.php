@@ -24,24 +24,14 @@
       $(document).ready(function() {
          $('.sidenav').sidenav();
 
-         $('body').on('touchend click', function(e) {
+         $('body').on('touchstart click', function(e) {
             e.stopPropagation();
-            // e.preventDefault();
             if (e.target.id == 'left_nav' || $(e.target).parents("#left_nav").length == 1 || e.target.id == 'menu_icon' || $(e.target).parents("#menu_icon").length == 1) {
-               
-               setTimeout(function(){
-                  $('.left_nav').show();
-               },100)
+               $('.left_nav').show();
             } else {
                $('.left_nav').hide();
             }
          });
-
-         $('li').on('click', function(e){
-            e.stopPropagation();
-            let url = $(this).children().attr('href');
-            location.href=url ;
-         })
       });
    </script>
 </header>
