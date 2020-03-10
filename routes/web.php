@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/change_Path', 'change_Path_controller@index');
+Route::get('test/',function(){
+    return view('test');
+});
 
 
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
@@ -24,7 +27,7 @@ Route::post('register', 'Auth\RegisterController@register')->name('do_register')
 
 Route::get('confirm/{active}','Auth\RegisterController@confirm')->name('confirm');
 
-Route::get('/email', 'frontend\RegisterEmailController@send');
+// Route::get('/email', 'frontend\RegisterEmailController@send');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
