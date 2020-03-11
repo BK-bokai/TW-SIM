@@ -29,7 +29,7 @@
          $('.sidenav').sidenav();
 
          $('body').on('touchend click', function(e) {
-            e.stopPropagation();
+            // e.stopPropagation();
             // e.preventDefault();
             if (e.target.id == 'left_nav' || $(e.target).parents("#left_nav").length == 1 || e.target.id == 'menu_icon' || $(e.target).parents("#menu_icon").length == 1) {
                
@@ -42,7 +42,7 @@
          });
 
          $('li').on('click', function(e){
-            e.stopPropagation();
+            // e.stopPropagation();
             let url = $(this).children().attr('href');
             location.href=url ;
          })
