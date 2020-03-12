@@ -7,7 +7,7 @@ $places =['鞍部', '淡水站', '竹子湖', '基隆', '台北', '新屋', '板
 
 
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','性能評估結果')
 
 @section('content')
@@ -22,15 +22,15 @@ $places =['鞍部', '淡水站', '竹子湖', '基隆', '台北', '新屋', '板
     }
 </style>
 <ul class="pagination white" style="margin-top: 0%">
-    <li class="waves-effect"><a href="{{route('admin.detail_Evaluate',['Met_evaluates'=>$id])}}">查看資料</a></li>
-    <li class="waves-effect"><a href="{{route('admin.download_Evaluate',['Time_Period'=>$Time_Period])}}">資料下載</a></li>
+    <li class="waves-effect"><a href="{{route('Met.detail_Evaluate',['Met_evaluates'=>$id])}}">查看資料</a></li>
+    <li class="waves-effect"><a href="{{route('Met.download_Evaluate',['Time_Period'=>$Time_Period])}}">資料下載</a></li>
 </ul>
 <ul class="pagination">
     <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
     @foreach($places as $place)
-    <li class="waves-effect @if($area == $place) active  @endif"><a href="{{route('admin.detail_img_Evaluate',['area'=>$place,'Met_evaluates'=>$id])}}">{{$place}}</a></li>
+    <li class="waves-effect @if($area == $place) active  @endif"><a href="{{route('Met.detail_img_Evaluate',['area'=>$place,'Met_evaluates'=>$id])}}">{{$place}}</a></li>
     @endforeach
-    <li class="waves-effect"><a href="{{route('admin.detail_img_Evaluate',['area'=>$places[array_search($area,$places)+1],'Met_evaluates'=>$id])}}"><i class="material-icons">chevron_right</i></a></li>
+    <li class="waves-effect"><a href="{{route('Met.detail_img_Evaluate',['area'=>$places[array_search($area,$places)+1],'Met_evaluates'=>$id])}}"><i class="material-icons">chevron_right</i></a></li>
 
 </ul>
 

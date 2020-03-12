@@ -2,13 +2,13 @@
 <script src="{{ asset('js/index_image.js') }}" charset="utf-8"></script>
 @endsection
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','任務清單')
 
 @section('content')
 
 <div class=" card row addeva">
-    <form method="post" action="{{route('admin.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
+    <form method="post" action="{{route('Met.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table class="highlight">
             <thead>
@@ -71,7 +71,7 @@
                 </td>
                 <td>
                     @if($Eva->Finish)
-                    <a href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">Download</a>
+                    <a href="{{route('Met.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">Download</a>
                     @else
                     <p>請稍後</p>
                     @endif

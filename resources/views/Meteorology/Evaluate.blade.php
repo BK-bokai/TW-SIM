@@ -5,12 +5,12 @@ $redis->connect("127.0.0.1","6379");
 
 
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','任務清單')
 
 @section('content')
-<div class=" card row " style="margin-top: 0">
-    <form method="post" action="{{route('admin.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
+<div class=" white row " style="margin-top: 0">
+    <form method="post" action="{{route('Met.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table class="highlight centered">
 
@@ -19,9 +19,8 @@ $redis->connect("127.0.0.1","6379");
                     <td>
                         <label>
                             <select name='year'>
-                            @for ($year = 2016; $year <= (int)date("Y"); $year++)
-                                <option value="{{$year}}">{{$year}}</option>
-                            @endfor
+                                @for ($year = 2016; $year <= (int)date("Y"); $year++) <option value="{{$year}}">{{$year}}</option>
+                                    @endfor
                             </select>
                             <span>請選擇年分</span>
                         </label>
@@ -45,7 +44,7 @@ $redis->connect("127.0.0.1","6379");
                         <label>
                     </td>
                     <td>
-                        <button class="btn waves-effect waves-light evabtn" type="submit" name="action">進行性能評估
+                        <button class="btn waves-effect waves-light evabtn" type="submit" name="action">執行
                             <i class="material-icons right"></i>
                         </button>
                     </td>
@@ -71,12 +70,10 @@ $redis->connect("127.0.0.1","6379");
                 <th>查看結果</th>
             </tr>
         </thead>
-    @if (count($Evaluate_List) !== 0)
-
-
-        @foreach($Evaluate_List as $Eva)
-        <tbody id="{{$Eva->id}}">
-            <tr>
+        <tbody>
+            @if (count($Evaluate_List) !== 0)
+            @foreach($Evaluate_List as $Eva)
+            <tr id="{{$Eva->id}}">
                 <td>
                     {{ $loop->index +1 }}
                 </td>
@@ -84,24 +81,22 @@ $redis->connect("127.0.0.1","6379");
                     {{str_replace("_","至",$Eva->Time_Period)}}
                 </td>
                 <td>
-                    <a class="green-text" href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
+                    <a class="green-text" href="{{route('Met.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
                 </td>
                 <td>
-                    <a btnid="{{$Eva->id}}" class="red-text delEva" href="javascript:void(0)" url="{{route('admin.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
+                    <a btnid="{{$Eva->id}}" class="red-text delEva" href="javascript:void(0)" url="{{route('Met.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
                 </td>
                 <td>
-                
-                    <a class="green-text" href="{{route('admin.detail_Evaluate',['Met_evaluates'=>$Eva->id])}}">查看詳情</a>
+
+                    <a class="green-text" href="{{route('Met.detail_Evaluate',['Met_evaluates'=>$Eva->id])}}">查看詳情</a>
                 </td>
             </tr>
-        </tbody>
-
-        @endforeach
-
+            @endforeach
             @endif
 
+
             @if($First_unFinish !== null)
-            <tbody>
+            <tr>
                 <td>
                     {{$First_unFinish->id}}
                 </td>
@@ -129,11 +124,11 @@ $redis->connect("127.0.0.1","6379");
                         MyCounter();
                     })
                 </script>
-            </tbody>
+            </tr>
             @endif
 
             @foreach($unFinish_List as $job)
-            <tbody>
+            <tr>
                 <td>
                     {{$job->id}}
                 </td>
@@ -146,8 +141,9 @@ $redis->connect("127.0.0.1","6379");
                     <p>此工作還須執行{{$job->Execution_Time}}
                         秒</p>
                 </td>
-            </tbody>
+            </tr>
             @endforeach
+        </tbody>
     </table>
 
 

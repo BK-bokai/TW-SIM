@@ -6,7 +6,7 @@ $area = ['north'=>'北','center'=>'中','south'=>'南','YunJia'=>'雲嘉','east'
 
 
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','性能評估結果')
 
 @section('content')
@@ -20,8 +20,8 @@ li.waves-effect:hover{
 }
 </style>
 <ul class="pagination white highlight" style="margin-bottom: 0%; margin-top: 0%">
-    <li class="waves-effect"><a href="{{route('admin.detail_img_Evaluate',['area'=>'台北','Met_evaluates'=>$id])}}">查看圖片</a></li>
-    <li class="waves-effect"><a href="{{route('admin.download_Evaluate',['Time_Period'=>$Time_Period])}}">資料下載</a></li>
+    <li class="waves-effect"><a href="{{route('Met.detail_img_Evaluate',['area'=>'台北','Met_evaluates'=>$id])}}">查看圖片</a></li>
+    <li class="waves-effect"><a href="{{route('Met.download_Evaluate',['Time_Period'=>$Time_Period])}}">資料下載</a></li>
 </ul>
 <div class="tabs-wrapper" style="margin-top: 0%">
     <div id="tabs">

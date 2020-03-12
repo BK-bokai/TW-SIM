@@ -5,12 +5,12 @@ $redis->connect("127.0.0.1","6379");
 
 
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','任務清單')
 
 @section('content')
 <div class=" card row " style="margin-top: 0">
-    <form method="post" action="{{route('admin.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
+    <form method="post" action="{{route('Met.do_Evaluate')}}" class="col s12 loginform" enctype="multipart/form-data">
         {{ csrf_field() }}
         <table class="highlight centered">
 
@@ -83,14 +83,14 @@ $redis->connect("127.0.0.1","6379");
                         {{str_replace("_","至",$Eva->Time_Period)}}
                     </td>
                     <td>
-                        <a class="green-text" href="{{route('admin.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
+                        <a class="green-text" href="{{route('Met.download_Evaluate',['Time_Period'=>$Eva->Time_Period])}}">下載</a>
                     </td>
                     <td>
-                        <a btnid="{{$Eva->id}}" class="red-text delEva" href="javascript:void(0)" url="{{route('admin.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
+                        <a btnid="{{$Eva->id}}" class="red-text delEva" href="javascript:void(0)" url="{{route('Met.delete_Evaluate',['Met_eva'=>$Eva->id])}}">刪除</a>
                     </td>
                     <td>
 
-                        <a class="green-text" href="{{route('admin.detail_Evaluate',['Met_evaluates'=>$Eva->id])}}">查看詳情</a>
+                        <a class="green-text" href="{{route('Met.detail_Evaluate',['Met_evaluates'=>$Eva->id])}}">查看詳情</a>
                     </td>
                 </tr>
             </tbody>

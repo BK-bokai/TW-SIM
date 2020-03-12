@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Meteorology;
 
 
 use App\Http\Controllers\Controller;
@@ -34,60 +34,30 @@ class EvaluateController extends Controller
         } else {
             $unFinish_List = Met_evaluates::where('Finish', 0)->orderBy('created_at')->get();
         }
-        return view('backend.Evaluate', compact('Evaluate_List', 'First_unFinish', 'unFinish_List'));
+        return view('Meteorology.Evaluate', compact('Evaluate_List', 'First_unFinish', 'unFinish_List'));
     }
-    public function change_time_priod($Evaluate_List)
-    {
-        foreach ($Evaluate_List as $Evaluate) {
-            $Time_Period = $Evaluate->Time_Period;
-            $Evaluate->Time_Period = str_replace("_","至",$Time_Period);
-        }
-        return $Evaluate_List;
-    }
+
 
     function detail(Request $request, Met_evaluates $Met_evaluates)
     {
-        // return $Met_evaluates;
         $data = Excel::toArray(new MetEvaluateImport, public_path() . $Met_evaluates->Path);
         $id = $Met_evaluates->id;
-        // return $data;
         $Time_Period = $Met_evaluates->Time_Period;
-        return view('backend.detailEvaluate', compact('data', 'id', 'Time_Period'));
+        return view('Meteorology.detailEvaluate', compact('data', 'id', 'Time_Period'));
     }
 
     function detailImg(Request $request, $area, Met_evaluates $Met_evaluates)
     {
-        // $Path = public_path() . $Met_evaluates->Path;
-        // $Path = explode("\\", $Path);
-        // $Path = join("\\", array_slice($Path, 7, 4)) . '\\imgs';
-
         $Path = $Met_evaluates->Path;
-        $Path = explode("\\", $Path);
-        $Path = join("\\", array_slice($Path, 1, 4)) . '\\imgs';
-        // array_pop($Path);
-        // $Path = join("\\", $Path) . '\\imgs';
-        // return $Path;
-        $T2Path = $Path . '\\T2';
-        $WSPath = $Path . '\\WS';
-        $WDPath = $Path . '\\WD';
-        foreach (scandir($T2Path) as $imgs) {
-            if (strpos($imgs, $area)) {
-                $T2img = $T2Path . '\\' . $imgs;
-            }
-        }
-        foreach (scandir($WSPath) as $imgs) {
-            if (strpos($imgs, $area)) {
-                $WSimg = $WSPath . '\\' . $imgs;
-            }
-        }
-        foreach (scandir($WDPath) as $imgs) {
-            if (strpos($imgs, $area)) {
-                $WDimg = $WDPath . '\\' . $imgs;
-            }
-        }
+        $All_img = $this->EvaluateService->get_img($Path,$area);
+
+        $T2img =$All_img['T2img'];
+        $WSimg =$All_img['WSimg'];
+        $WDimg =$All_img['WDimg'];
+
         $id = $Met_evaluates->id;
         $Time_Period = $Met_evaluates->Time_Period;
-        return view('backend.DetailImglEvaluate', compact('T2img', 'WSimg', 'WDimg', 'id', 'area', 'Time_Period'));
+        return view('Meteorology.DetailImglEvaluate', compact('T2img', 'WSimg', 'WDimg', 'id', 'area', 'Time_Period'));
     }
 
     function evaluate(Request $request)
@@ -114,7 +84,6 @@ class EvaluateController extends Controller
             $rootdir = public_path() . "\MetData\\";
             $this->EvaluateService->Met_Evaluate($now, $start, $end, $rootdir);
             $period = ((int) substr($end, 5, 2) - (int) substr($start, 5, 2)) + 1; #經過幾個月
-            // $path = public_path() . "\MetData\Evaluate\\" . $now . '_' . $start . "-" . $end . "\\Result\\" . $start . '_' . $end . '_evaluate.xlsx';
             $path = "\MetData\Evaluate\\" . $now . '_' . $start . "-" . $end . "\\Result\\" . $start . '_' . $end . '_evaluate.xlsx';
             $Execution_Time = 150;
             $Evaluate_task = new Met_evaluates([
@@ -148,45 +117,10 @@ class EvaluateController extends Controller
         $Path = explode("\\", $Path);
         array_pop($Path);
         $Path = join("\\", $Path) . '\\';
-        // return $Path;
         $zip_fileName = 'TWSimEvaFile.zip';
-        $zip_file = $this->zipfile($zip_fileName, $Path);
+        $zip_file = $this->EvaluateService->zipfile($zip_fileName, $Path);
         return response()->download($zip_file);
     }
-
-    function zipfile($zipFileName, $Path)
-    {
-        $zip_file = $zipFileName;
-        $zip = new \ZipArchive();
-        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-        $predir = Null;
-        $this->addFileToZip($Path, $zip, $predir);
-        $zip->close();
-        return $zip_file;
-    }
-
-    function addFileToZip($Path, $zip, $predir)
-    {
-        $datas = scandir($Path);
-        foreach ($datas as $data) {
-            if ($data != "." && $data != "..") {
-                if (!is_dir($Path . $data)) {
-                    if (is_null($predir)) {
-                        $download = $Path . $data;
-                        $zip->addFile($download, $data);
-                    } else {
-                        $download = $Path . $data;
-                        $zip->addFile($download, $predir . '\\' . $data);
-                    }
-                } else {
-                    $this->addFileToZip($Path . $data . '\\', $zip, $data);
-                }
-            }
-        }
-    }
-
-
-
 
     function delete(Request $request, Met_evaluates $Met_eva)
     {
@@ -202,28 +136,5 @@ class EvaluateController extends Controller
         return [$Path];
     }
 
-    function deldir($path)
-    {
-        //如果是目錄則繼續
-        if (is_dir($path)) {
-            //掃描一個資料夾內的所有資料夾和檔案並返回陣列
-            $p = scandir($path);
-            foreach ($p as $val) {
-                // 排除目錄中的.和..
-                if ($val != "." && $val != "..") {
-                    //如果是目錄則遞迴子目錄，繼續操作
-                    if (is_dir($path . $val)) {
-                        //子目錄中操作刪除資料夾和檔案
-                        $this->deldir($path . $val . '/');
-                        //目錄清空後刪除空資料夾
-                        @rmdir($path . $val . '/');
-                    } else {
-                        //如果是檔案直接刪除
-                        unlink($path . $val);
-                        @rmdir($path);
-                    }
-                }
-            }
-        }
-    }
+
 }

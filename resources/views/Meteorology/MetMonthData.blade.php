@@ -4,7 +4,7 @@ $var_china = ['T2'=>'溫度','WS'=>'風速','WD'=>'風向'];
 @endphp
 
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','資料庫管理系統')
 
 @section('content')
@@ -15,9 +15,9 @@ $var_china = ['T2'=>'溫度','WS'=>'風速','WD'=>'風向'];
 </style>
 <div class="row">
     <div class="collection " style="margin: 0">
-        <a href="{{route('admin.MetMonthData',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>'T2'])}}" class='black-text collection-item {{ $var == "T2" ? "active" : "" }}'>溫度</a>
-        <a href="{{route('admin.MetMonthData',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>'WS'])}}" class='black-text collection-item {{ $var == "WS" ? "active" : "" }}'>風速</a>
-        <a href="{{route('admin.MetMonthData',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>'WD'])}}" class='black-text collection-item {{ $var == "WD" ? "active" : "" }}'>風向</a>
+        <a href="{{route('Met.MetMonthData',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>'T2'])}}" class='black-text collection-item {{ $var == "T2" ? "active" : "" }}'>溫度</a>
+        <a href="{{route('Met.MetMonthData',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>'WS'])}}" class='black-text collection-item {{ $var == "WS" ? "active" : "" }}'>風速</a>
+        <a href="{{route('Met.MetMonthData',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>'WD'])}}" class='black-text collection-item {{ $var == "WD" ? "active" : "" }}'>風向</a>
     </div>
     <div class="row" style="margin-top: 3%">
         <div class="col s12 center">
@@ -35,7 +35,7 @@ $var_china = ['T2'=>'溫度','WS'=>'風速','WD'=>'風向'];
     <div class="row container">
         <p>請上傳{{$year}}年{{$month}}月的資料</p>
         <div class="row">
-            <form action="{{route('admin.UploatMet',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>$var])}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('Met.UploatMet',['year'=>$year,'month'=>$month,'datatype'=>$datatype,'var'=>$var])}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="file-field input-field">
@@ -81,17 +81,17 @@ $var_china = ['T2'=>'溫度','WS'=>'風速','WD'=>'風向'];
                         </thead>
 
                         <tbody>
-                            <form id='allForm' action="{{route('admin.Multiple',['method'=>'download','datatype'=>$datatype,'var'=>$var])}}" method="post" enctype="multipart/form-data">
+                            <form id='allForm' action="{{route('Met.Multiple',['method'=>'download','datatype'=>$datatype,'var'=>$var])}}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 @foreach ($datas as $data)
                                 <tr date="{{$data->date}}data">
                                     <td>{{ $loop->index +1 }}</td>
                                     <td>{{$data->date}}</td>
                                     <td>
-                                        <a href="{{route('admin.download_MetMonth',['DataID'=>$data->id,'datatype'=>$datatype,'var'=>$var])}}" class="green-text">下載</a>
+                                        <a href="{{route('Met.download_MetMonth',['DataID'=>$data->id,'datatype'=>$datatype,'var'=>$var])}}" class="green-text">下載</a>
                                     </td>
                                     <td>
-                                        <a href="#" class="delData red-text" url="{{route('admin.DeleteMet',['DataID'=>$data->id,'datatype'=>$datatype,'var'=>$var])}}" datatime="{{$data->date}}" datatype='{{ $datatype == "Obs" ? "觀測資料" : "模擬資料" }}'>刪除</a>
+                                        <a href="#" class="delData red-text" url="{{route('Met.DeleteMet',['DataID'=>$data->id,'datatype'=>$datatype,'var'=>$var])}}" datatime="{{$data->date}}" datatype='{{ $datatype == "Obs" ? "觀測資料" : "模擬資料" }}'>刪除</a>
                                     </td>
                                     <td>
                                         <p>
@@ -107,12 +107,12 @@ $var_china = ['T2'=>'溫度','WS'=>'風速','WD'=>'風向'];
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <button method='download' class="btn waves-effect waves-light disabled checkbtn" url="{{route('admin.Multiple',['method'=>'download','datatype'=>$datatype,'var'=>$var])}}" type="submit" name="action">
+                                        <button method='download' class="btn waves-effect waves-light disabled checkbtn" url="{{route('Met.Multiple',['method'=>'download','datatype'=>$datatype,'var'=>$var])}}" type="submit" name="action">
                                             一鍵下載
                                         </button>
                                     </td>
                                     <td>
-                                        <button method='delete' class="btn waves-effect waves-light disabled checkbtn" url="{{route('admin.Multiple',['method'=>'delete','datatype'=>$datatype,'var'=>$var])}}" type="submit" name="action">
+                                        <button method='delete' class="btn waves-effect waves-light disabled checkbtn" url="{{route('Met.Multiple',['method'=>'delete','datatype'=>$datatype,'var'=>$var])}}" type="submit" name="action">
                                             一鍵刪除
                                         </button>
                                     </td>

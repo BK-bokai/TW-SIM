@@ -2,7 +2,7 @@
 <script src="{{ asset('js/index_image.js') }}" charset="utf-8"></script>
 @endsection
 
-@extends('backend.Layouts.master')
+@extends('Meteorology.Layouts.master')
 @section('title','資料庫管理系統')
 
 @section('content')
@@ -52,8 +52,8 @@
                             {{$simnum_wd[$year][$i]}}
                         </td>
                         <td>
-                            <a href="{{route('admin.MetMonthData',['year'=>$year,'month'=>$i,'datatype'=>'Obs','var'=>'T2'])}}" class="waves-effect waves-light btn-small">OBS</a>
-                            <a href="{{route('admin.MetMonthData',['year'=>$year,'month'=>$i,'datatype'=>'Sim','var'=>'T2'])}}" class="waves-effect waves-light btn-small">SIM</a>
+                            <a href="{{route('Met.MetMonthData',['year'=>$year,'month'=>$i,'datatype'=>'Obs','var'=>'T2'])}}" class="waves-effect waves-light btn-small">OBS</a>
+                            <a href="{{route('Met.MetMonthData',['year'=>$year,'month'=>$i,'datatype'=>'Sim','var'=>'T2'])}}" class="waves-effect waves-light btn-small">SIM</a>
                         </td>
                         </tr>
                         @endfor

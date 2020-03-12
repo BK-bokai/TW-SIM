@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Meteorology;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class MetDataController extends Controller
         $obsnum_wd = $this->getnum($obs_wd);
         $simnum_wd = $this->getnum($sim_wd);
 
-        return view('backend.MetData', compact(
+        return view('Meteorology.MetData', compact(
             'obs_t2',
             'sim_t2',
             'obs_ws',
@@ -77,25 +77,25 @@ class MetDataController extends Controller
         if ($datatype == 'Obs') {
             if ($var == 'T2') {
                 $datas = Met_obsdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
+                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WS') {
                 $datas = Met_obsdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
+                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WD') {
                 $datas = Met_obsdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
+                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             }
         }
         if ($datatype == 'Sim') {
             if ($var == 'T2') {
                 $datas = Met_simdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
+                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WS') {
                 $datas = Met_simdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
+                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WD') {
                 $datas = Met_simdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('backend.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
+                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             }
         }
     }

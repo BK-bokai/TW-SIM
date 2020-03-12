@@ -60,11 +60,11 @@
 </head>
 
 <body>
-  @include("backend.Layouts.menu")
+  @include("Meteorology.Layouts.menu")
   <main id='main' class="red lighten-5">
     @yield("content")
   </main>
-  @include("backend.Layouts.footer")
+  @include("Meteorology.Layouts.footer")
 </body>
 
 </html>
