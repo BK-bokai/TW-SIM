@@ -19,8 +19,8 @@ class FbLoginController extends Controller
         $getInfo = Socialite::driver($provider)->user();
         $user = $this->createUser($getInfo, $provider);
         auth()->login($user);
-        return redirect()->route('admin.Evaluate');
-        // return Redirect::to('https://localhost/php/bkLaravel_2/public/admin/img');
+        return redirect()->route('Met.Evaluate');
+        // return Redirect::to('https://localhost/php/bkLaravel_2/public/Met/img');
     }
 
     function createUser($getInfo, $provider)

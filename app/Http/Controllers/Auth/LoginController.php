@@ -33,7 +33,7 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        return route('admin.Evaluate');
+        return route('Met.Evaluate');
     }
 
     public function username()
