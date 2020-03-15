@@ -10,10 +10,15 @@ use App\Models\Met_obsdata_wd;
 use App\Models\Met_simdata_t2;
 use App\Models\Met_simdata_ws;
 use App\Models\Met_simdata_wd;
+use App\Services\MetDataService;
 
 class MetDataController extends Controller
 {
 
+    public function __construct(MetDataService $MetDataService)
+    {
+        $this->MetDataService = $MetDataService;
+    }
 
     public function getnum($datas)
     {
@@ -69,130 +74,24 @@ class MetDataController extends Controller
 
     public function MetMonthData(Request $request, $year, $month, $datatype, $var)
     {
-        $this->check_date_and_data($year,$month,$datatype,$var);
-
         $num = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-
-
-        if ($datatype == 'Obs') {
-            if ($var == 'T2') {
-                $datas = Met_obsdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
-            } elseif ($var == 'WS') {
-                $datas = Met_obsdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
-            } elseif ($var == 'WD') {
-                $datas = Met_obsdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
-            }
+        $check=$this->MetDataService->check_date_and_data($year,$month,$datatype,$var);
+        if($check){
+            return $this->MetDataService->get_Month_Data($year, $month, $datatype, $var, $num);
         }
-        if ($datatype == 'Sim') {
-            if ($var == 'T2') {
-                $datas = Met_simdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
-            } elseif ($var == 'WS') {
-                $datas = Met_simdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
-            } elseif ($var == 'WD') {
-                $datas = Met_simdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
-            }
-        }
-    }
-
-    public function check_date_and_data($year,$month,$datatype,$var)
-    {
-        $dataType_Arr = ['Sim', 'Obs'];
-        $var_Arr = ['T2', 'WS', 'WD'];
-
-        if ((int)$year>=(int)date("Y") && (int)$month > (int)date("m")){
+        else{
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(404);
-        }
-        elseif((int)$month>12 || !in_array($var, $var_Arr, true) || !in_array($datatype, $dataType_Arr, true)){
-            throw new \Symfony\Component\HttpKernel\Exception\HttpException(404);
-        }
-    }
-
-    public function ObsCheckUpload(Request $request, $year, $month, $datatype, $var)
-    {
-        $msg = ['T2' => '溫度', 'WS' => '風速', 'WD' => '風向'];
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                $fileName = $file->getClientOriginalName();
-                $path = public_path() . "\MetData\Obs\\$var\\";
-                $time = date("Y-m", strtotime("{$year}-{$month}-01"));
-                if (substr($fileName, 11, 2) !== $var) {
-                    $errors = ['files' => "請確認您上傳的資料是否為{$msg[$var]}!"];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-
-                if (is_file($path . $fileName)) {
-                    $errors = ['files' => '請勿上傳系統已有的資料!'];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-
-                if (substr($fileName, 0, 7) !== $time) {
-                    $lastYear = (string) ((int) $year - 1);
-                    $nextYear = (string) ((int) $year + 1);
-                    // if ($month == '1' && substr($fileName, 0, 10) == "{$lastYear}-12-31") {
-                    //     continue;
-                    // }
-                    // if ($month == '12' && substr($fileName, 0, 10) == "{$nextYear}-01-01") {
-                    //     continue;
-                    // }
-                    $errors = ['files' => '請確認上傳的檔案日期'];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-            }
-            return 'isok';
-        }
-    }
-
-    public function SimCheckUpload(Request $request, $year, $month, $datatype, $var)
-    {
-        $msg = ['T2' => '溫度', 'WS' => '風速', 'WD' => '風向'];
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                $fileName = $file->getClientOriginalName();
-                $path = public_path() . "\MetData\\$datatype\\$var\\";
-                $time = date("Y-m", strtotime("{$year}-{$month}-01"));
-                if (substr($fileName, 22, 2) !== $var) {
-                    $errors = ['files' => "請確認您上傳的資料是否為{$msg[$var]}!"];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-
-                if (is_file($path . $fileName)) {
-                    $errors = ['files' => '請勿上傳系統已有的資料!'];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-
-                if (substr($fileName, 11, 7) !== $time) {
-                    $lastYear = (string) ((int) $year - 1);
-                    // if ($month == '1' && substr($fileName, 11, 10) == "{$lastYear}-12-31") {
-                    //     continue;
-                    // }
-                    $errors = ['files' => '請確認上傳的檔案日期'];
-                    return redirect()->back()
-                        ->withErrors($errors);
-                }
-            }
-            return 'isok';
-        }
+        }    
     }
 
 
     public function MetUpload(Request $request, $year, $month, $datatype, $var)
     {
-        if ($datatype == 'Obs') {
-            if ($this->ObsCheckUpload($request, $year, $month, $datatype, $var) !== 'isok') {
-                return $this->ObsCheckUpload($request, $year, $month, $datatype, $var);
-            }
+        if ($this->MetDataService->CheckUpload($request, $year, $month, $datatype, $var) !== 'isok') {
+            return $this->MetDataService->CheckUpload($request, $year, $month, $datatype, $var);
+        }
 
+        if ($datatype == 'Obs') {
             if ($var == 'T2') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
@@ -246,15 +145,8 @@ class MetDataController extends Controller
                     ]);
                 }
             }
-
-
-            return redirect(route('admin.MetMonthData', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
+            return redirect(route('Met.MetMonthData', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
         } elseif ($datatype == 'Sim') {
-
-            if ($this->SimCheckUpload($request, $year, $month, $datatype, $var) !== 'isok') {
-                return $this->SimCheckUpload($request, $year, $month, $datatype, $var);
-            }
-
             if ($var == 'T2') {
                 foreach ($request->file('files') as $file) {
                     $fileName = $file->getClientOriginalName();
@@ -310,7 +202,7 @@ class MetDataController extends Controller
             }
 
 
-            return redirect(route('admin.MetMonthData', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
+            return redirect(route('Met.MetMonthData', ['year' => $year, 'month' => $month, 'datatype' => $datatype, 'var' => $var]));
         }
     }
 

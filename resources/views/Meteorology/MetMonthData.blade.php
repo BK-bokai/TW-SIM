@@ -54,6 +54,16 @@ $var_china = ['T2'=>'溫度','WS'=>'風速','WD'=>'風向'];
                 @error('files')
                 <p class="red-text">{{ $message }}</p>
                 @enderror
+                @error('datatype')
+                <p class="red-text">{{ $message }}</p>
+                @enderror
+                @error('var')
+                <p class="red-text">{{ $message }}</p>
+                @enderror
+                @error('time')
+                <p class="red-text">{{ $message }}</p>
+                @enderror
+
             </form>
         </div>
 

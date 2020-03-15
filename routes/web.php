@@ -40,7 +40,7 @@ Route::get('/FBcallback/{provider}', 'Auth\FbLoginController@callback');
 
 // https://192.168.1.166/php/TW_SIM_Evaluate/public/FBcallback/facebook
 
-Route::middleware('auth')->prefix('admin')->name('Met.')->group(function () {
+Route::middleware('auth')->prefix('Met')->name('Met.')->group(function () {
     Route::namespace('Meteorology')->group(function () {
         Route::get('/Evaluate', 'EvaluateController@index')->name('Evaluate');
         Route::get('/Evaluate/data/{Met_evaluates}', 'EvaluateController@detail')->name('detail_Evaluate');

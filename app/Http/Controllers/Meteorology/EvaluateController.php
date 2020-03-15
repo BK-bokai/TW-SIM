@@ -66,7 +66,7 @@ class EvaluateController extends Controller
         $start_month = $request->start_month;
         $end_month   = $request->end_month;
         if ($start_month > $end_month) {
-            return redirect(route('admin.Evaluate'))->with('error', '您輸入的時間有誤');
+            return redirect(route('Met.Evaluate'))->with('error', '您輸入的時間有誤');
         }
 
 
@@ -104,10 +104,10 @@ class EvaluateController extends Controller
             $this->redis->set($start . '_' . $end, 'processing');
             $this->redis->expire($start . '_' . $end, ($period * $Execution_Time) + $waitTime);
 
-            return redirect(route('admin.Evaluate'));
+            return redirect(route('Met.Evaluate'));
         }
 
-        return redirect(route('admin.Evaluate'))->with('error', '此段時間已有資料請直接下載');
+        return redirect(route('Met.Evaluate'))->with('error', '此段時間已有資料請直接下載');
     }
 
     function download(Request $request, $Time_Period)
