@@ -72,7 +72,7 @@ class MetDataService
                 if ($datatype == 'Obs') {
                     $path = public_path() . "\MetData\Obs\\$var\\";
                     $data_Time = substr($fileName, 0, 7);
-                    if(!strpos($fileName,'obs')){
+                    if(count(explode('obs',$fileName))==1){
                         $errors['datatype']="請確認您上傳的資料是否為觀測資料!";
                         $error = TRUE;
                     }
@@ -80,13 +80,13 @@ class MetDataService
                 } elseif ($datatype == 'Sim') {
                     $path = public_path() . "\MetData\Sim\\$var\\";
                     $data_Time = substr($fileName, 11, 7);
-                    if(!strpos($fileName,'wrfout')){
+                    if(count(explode('wrfout',$fileName))==1){
                         $errors['datatype']="請確認您上傳的資料是否為模擬資料!";
                         $error = TRUE;
                     }
                 }
 
-                if(!strpos($fileName,$var)){
+                if(count(explode($var,$fileName))==1){
                     $errors['var']="請確認您上傳的資料是否為{$msg[$var]}!";
                     $error = TRUE;
                 }
@@ -102,6 +102,9 @@ class MetDataService
                 }
             }
         }
+        else{
+            throw new \Symfony\Component\HttpKernel\Exception\HttpException(404);
+        }
 
         if($error){
             return redirect()->back()
@@ -111,4 +114,52 @@ class MetDataService
             return 'isok';
         }
     }
+
+    public function Met_Create(Request $request, $year, $month, $datatype, $var)
+    {
+        foreach ($request->file('files') as $file) {
+            $fileName = $file->getClientOriginalName();
+            $path = "\MetData\\$datatype\\$var\\";
+            $time = date("Y-m", strtotime("{$year}-{$month}-01"));
+            $file->move(public_path() . $path, $fileName);
+            $create_Data = [
+                'Filename' => $fileName,
+                'Path'  => $path . $fileName,
+                'year' => $year,
+                'month' => $month,
+            ];
+
+            if ($datatype == 'Obs') {
+                $create_Data['day'] = substr($fileName, 8, 2);
+                $create_Data['date'] = substr($fileName, 0, 10);
+                return substr($fileName, 8, 2);
+                switch ($var) {
+                    case "T2":
+                        Met_obsdata_t2::create($create_Data);
+                        break;
+                    case "WS":
+                        Met_obsdata_ws::create($create_Data);
+                        break;
+                    case "WD":
+                        Met_obsdata_wd::create($create_Data);
+                        break;
+                }
+            } elseif ($datatype == 'Sim') {
+                $create_Data['day'] = substr($fileName, 19, 2);
+                $create_Data['date'] = substr($fileName, 11, 10);
+                switch ($var) {
+                    case "T2":
+                        Met_simdata_t2::create($create_Data);
+                        break;
+                    case "WS":
+                        Met_simdata_ws::create($create_Data);
+                        break;
+                    case "WD":
+                        Met_simdata_wd::create($create_Data);
+                        break;
+                }
+            }
+        }
+    }
+
 }
