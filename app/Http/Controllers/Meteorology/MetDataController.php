@@ -98,85 +98,77 @@ class MetDataController extends Controller
     function download(Request $request, $data, $datatype, $var)
     {
         if ($datatype == 'Obs') {
-            if ($var == 'T2') {
-                $zip_file = 'TWSimEvaFile.zip';
-                $zip = new \ZipArchive();
-                $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
-
-                $Metdata = Met_obsdata_t2::where('id', $data)->first();
-                $zip->addFile(public_path() . $Metdata->Path, $Metdata->Filename);
-                $zip->close();
-
-                return response()->download($zip_file);
-                // return response()->download($Metdata->Path);
-
-            } elseif ($var == 'WS') {
-                $Metdata = Met_obsdata_ws::where('id', $data)->first();
-                return response()->download(public_path() . $Metdata->Path);
-            } elseif ($var == 'WD') {
-                $Metdata = Met_obsdata_wd::where('id', $data)->first();
-                return response()->download(public_path() . $Metdata->Path);
+            switch ($var) {
+                case "T2":
+                    $Metdata = Met_obsdata_t2::where('id', $data)->first();
+                    return response()->download(public_path() . $Metdata->Path);
+                    break;
+                case "WS":
+                    $Metdata = Met_obsdata_ws::where('id', $data)->first();
+                    return response()->download(public_path() . $Metdata->Path);
+                    break;
+                case "WD":
+                    $Metdata = Met_obsdata_wd::where('id', $data)->first();
+                    return response()->download(public_path() . $Metdata->Path);
+                    break;
             }
         } elseif ($datatype == 'Sim') {
-            if ($var == 'T2') {
-                $Metdata = Met_simdata_t2::where('id', $data)->first();
-                return response()->download(public_path() . $Metdata->Path);
-            } elseif ($var == 'WS') {
-                $Metdata = Met_simdata_ws::where('id', $data)->first();
-                return response()->download(public_path() . $Metdata->Path);
-            } elseif ($var == 'WD') {
-                $Metdata = Met_simdata_wd::where('id', $data)->first();
-                return response()->download(public_path() . $Metdata->Path);
+            switch ($var) {
+                case "T2":
+                    $Metdata = Met_simdata_t2::where('id', $data)->first();
+                    return response()->download(public_path() . $Metdata->Path);
+                    break;
+                case "WS":
+                    $Metdata = Met_simdata_ws::where('id', $data)->first();
+                    return response()->download(public_path() . $Metdata->Path);
+                    break;
+                case "WD":
+                    $Metdata = Met_simdata_wd::where('id', $data)->first();
+                    return response()->download(public_path() . $Metdata->Path);
+                    break;
             }
         }
     }
 
     public function MetDelete(Request $request, $data, $datatype, $var)
     {
-        if ($datatype == "Sim") {
-            if ($var == "T2") {
-                $MetData = Met_simdata_t2::where('id', $data)->first();
-                unlink(public_path() . $MetData->Path);
-                $MetData->delete();
-            }
-            if ($var == "WS") {
-                $MetData = Met_simdata_ws::where('id', $data)->first();
-                unlink(public_path() . $MetData->Path);
-                $MetData->delete();
-            }
-            if ($var == "WD") {
-                $MetData = Met_simdata_wd::where('id', $data)->first();
-                unlink(public_path() . $MetData->Path);
-                $MetData->delete();
-            }
-        }
-
         if ($datatype == "Obs") {
-            if ($var == "T2") {
-                $MetData = Met_obsdata_t2::where('id', $data)->first();
-                unlink(public_path() . $MetData->Path);
-                $MetData->delete();
-                // $MetData = Met_obsdata_t2::all();
-                // foreach($MetData as $data)
-                // {
-                //     $path = public_path() . "\MetData\\$datatype\\$var\\";
-                //     $data->Path = $path.$data->Filename;
-                //     $data->save();
-                // }
-
+            switch ($var) {
+                case "T2":
+                    $MetData = Met_obsdata_t2::where('id', $data)->first();
+                    unlink(public_path() . $MetData->Path);
+                    $MetData->delete();
+                    break;
+                case "WS":
+                    $MetData = Met_obsdata_ws::where('id', $data)->first();
+                    unlink(public_path() . $MetData->Path);
+                    $MetData->delete();
+                    break;
+                case "WD":
+                    $MetData = Met_obsdata_wd::where('id', $data)->first();
+                    unlink(public_path() . $MetData->Path);
+                    $MetData->delete();
+                    break;
             }
-            if ($var == "WS") {
-                $MetData = Met_obsdata_ws::where('id', $data)->first();
-                unlink(public_path() . $MetData->Path);
-                $MetData->delete();
-            }
-            if ($var == "WD") {
-                $MetData = Met_obsdata_wd::where('id', $data)->first();
-                unlink(public_path() . $MetData->Path);
-                $MetData->delete();
+        } elseif ($datatype == "Sim") {
+            switch ($var) {
+                case "T2":
+                    $MetData = Met_simdata_t2::where('id', $data)->first();
+                    unlink(public_path() . $MetData->Path);
+                    $MetData->delete();
+                    break;
+                case "WS":
+                    $MetData = Met_simdata_ws::where('id', $data)->first();
+                    unlink(public_path() . $MetData->Path);
+                    $MetData->delete();
+                    break;
+                case "WD":
+                    $MetData = Met_simdata_wd::where('id', $data)->first();
+                    unlink(public_path() . $MetData->Path);
+                    $MetData->delete();
+                    break;
             }
         }
-
         return [$data, $datatype, $var];
     }
 

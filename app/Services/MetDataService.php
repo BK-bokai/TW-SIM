@@ -132,7 +132,6 @@ class MetDataService
             if ($datatype == 'Obs') {
                 $create_Data['day'] = substr($fileName, 8, 2);
                 $create_Data['date'] = substr($fileName, 0, 10);
-                return substr($fileName, 8, 2);
                 switch ($var) {
                     case "T2":
                         Met_obsdata_t2::create($create_Data);
