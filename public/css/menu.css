@@ -55,6 +55,14 @@ a {
     justify-content: flex-end;
 }
 
+.logo>a:link {
+    color: white;
+}
+
+.logo>a:visited {
+    color: white;
+}
+
 .nav_item {
     flex: 1 1 auto;
     /* height: 100%; */

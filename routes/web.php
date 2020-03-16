@@ -20,25 +20,25 @@ Route::get('test/', function () {
     return view('test');
 });
 
+Route::namespace('Auth')->group(function () {
+    Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
+    Route::post('register', 'RegisterController@register')->name('do_register');
+    Route::get('confirm/{active}', 'RegisterController@confirm')->name('confirm');
 
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login')->name('do_login');
 
-Route::post('register', 'Auth\RegisterController@register')->name('do_register');
+    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{reset_token}', 'ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'ResetPasswordController@reset')->name('password.update');
 
-Route::get('confirm/{active}', 'Auth\RegisterController@confirm')->name('confirm');
-
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-
-Route::post('login', 'Auth\LoginController@login')->name('do_login');
-
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-Route::get('/Facebook/redirect/{provider}', 'Auth\FbLoginController@redirect')->name('fbLogin');
-Route::get('/FBcallback/{provider}', 'Auth\FbLoginController@callback');
-
-// https://192.168.1.166/php/TW_SIM_Evaluate/public/FBcallback/facebook
+    Route::get('/Facebook/redirect/{provider}', 'FbLoginController@redirect')->name('fbLogin');
+    Route::get('/FBcallback/{provider}', 'FbLoginController@callback');
+    
+    Route::get('/auth/chengePassword','ResetPasswordController@userReset')->name('user.password.update')->middleware('auth');
+    // https://192.168.1.166/php/TW_SIM_Evaluate/public/FBcallback/facebook
+});
 
 Route::middleware('auth')->prefix('Met')->name('Met.')->group(function () {
     Route::namespace('Meteorology')->group(function () {
@@ -62,3 +62,5 @@ Route::middleware('auth')->prefix('Met')->name('Met.')->group(function () {
     });
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
+
+

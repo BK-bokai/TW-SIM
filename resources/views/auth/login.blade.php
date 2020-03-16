@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="input-field col s12">
-                <input id="name" type="text" class="validate un" name='name'>
+                <input id="name" type="text" class="validate" name='name'>
                 <label for="name"><span class="member">帳號</span></label>
                 <?php //print_r(Session::get('errors'))
                 ?>
@@ -23,7 +23,7 @@
 
         <div class="row">
             <div class="input-field col s12">
-                <input id="password" type="password" class="validate pw" name='password'>
+                <input id="password" type="password" class="validate" name='password'>
                 <label for="password"><span class="member">密碼</span></label>
                 @error('password')
                 <p class="red-text">{{ $message }}</p>
@@ -48,8 +48,6 @@
 
                 <h6>忘記密碼了?</h6>
                 <h5>點選<a href="{{ route('password.request') }}">這裡</a>重置密碼</h5>
-
-
             </div>
             <!-- Switch -->
             <div class="switch col s6">
