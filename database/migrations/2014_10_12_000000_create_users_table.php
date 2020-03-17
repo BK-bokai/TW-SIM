@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('active');
+            $table->boolean('admin')->default(False);
             $table->string('reset_token')->nullable();
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();

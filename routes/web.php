@@ -40,7 +40,7 @@ Route::namespace('Auth')->group(function () {
     // https://192.168.1.166/php/TW_SIM_Evaluate/public/FBcallback/facebook
 });
 
-Route::middleware('auth')->prefix('Met')->name('Met.')->group(function () {
+Route::middleware(['auth','checkAdmin'])->prefix('Met')->name('Met.')->group(function () {
     Route::namespace('Meteorology')->group(function () {
         Route::get('/Evaluate', 'EvaluateController@index')->name('Evaluate');
         Route::get('/Evaluate/data/{Met_evaluates}', 'EvaluateController@detail')->name('detail_Evaluate');
@@ -61,6 +61,11 @@ Route::middleware('auth')->prefix('Met')->name('Met.')->group(function () {
         Route::delete('/DELETE/{DataID}/{datatype}/{var}', 'MetDataController@MetDelete')->name('DeleteMet');
     });
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+});
+
+Route::middleware(['auth','checkAdmin'])->prefix('Member')->name('Member.')->namespace('Member')->group(function(){
+    Route::get('List','MemberController@index')->name('List');
+    Route::get('{member}','MemberController@memberPage')->name('memberPage');
 });
 
 

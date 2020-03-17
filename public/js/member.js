@@ -1,9 +1,7 @@
 $(document).ready(function () {
  
-  $('button.edit_mem').on('click',function(){
-    let url = $(this).attr('url');
-    // alert($(this).attr('url'));
-    // window.location.replace(url);  
+  $('button.memberPage').on('click',function(){
+    let url = $(this).attr('url'); 
     window.open(url)
   });
 
@@ -51,7 +49,4 @@ $(document).ready(function () {
         }
       });
   })
-
-
-
 })
