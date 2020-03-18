@@ -28,12 +28,12 @@
             <p class="js_email_error red-text"></p>
         </div>
         <div class="input-field col s12">
-            <select name='level' url="">
-                <!-- <option value="" disabled selected>level3</option> -->
-                <option value="1" {{ $member->level == 1 ? "selected" : "" }}>level1</option>
-                <option value="2" {{ $member->level == 2 ? "selected" : "" }}>level2</option>
-            </select>
-            <label>選擇管理權限</label>
+            <p>
+                <label>
+                    <input type="checkbox" class="filled-in" {{ $member->admin == 1 ? "checked" : "" }}  />
+                    <span>設定為管理員</span>
+                </label>
+            </p>
             @error('level')
             <p class="red-text">{{ $message }}</p>
             @enderror
