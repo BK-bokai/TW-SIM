@@ -16,7 +16,7 @@ $isAdmin=Session::get('isAdmin');
             @if($isAdmin)
             <li><a href="{{route('Member.List')}}">會員管理</a></li>
             @endif
-            <li><a href="{{route('user.password.update')}}">修改密碼</a></li>
+            <li><a href="{{route('Member.UpdatePwdPage',['member'=>$user->id])}}">修改密碼</a></li>
             <li><a href="{{route('Met.logout')}}">登出</a></li>
          </ul>
       </div>
@@ -29,7 +29,7 @@ $isAdmin=Session::get('isAdmin');
             @if($isAdmin)
             <li><a href="{{route('Member.List')}}">會員管理</a></li>
             @endif
-            <li><a href="{{route('user.password.update')}}">修改密碼</a></li>
+            <li><a href="{{route('Member.UpdatePwdPage',['member'=>$user->id])}}">修改密碼</a></li>
             <li><a href="{{route('Met.logout')}}">登出</a></li>
          </ul>
       </div>

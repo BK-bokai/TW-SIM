@@ -11,6 +11,7 @@ use App\Models\Met_simdata_t2;
 use App\Models\Met_simdata_ws;
 use App\Models\Met_simdata_wd;
 use App\Services\MetDataService;
+use Auth;
 
 class MetDataController extends Controller
 {
@@ -41,6 +42,7 @@ class MetDataController extends Controller
     }
     public function index(Request $request)
     {
+        $user = Auth::user();
         $obs_t2 = Met_obsdata_t2::all();
         $sim_t2 = Met_simdata_t2::all();
         $obs_ws = Met_obsdata_ws::all();
@@ -68,7 +70,8 @@ class MetDataController extends Controller
             'obsnum_ws',
             'simnum_ws',
             'obsnum_wd',
-            'simnum_wd'
+            'simnum_wd',
+            'user'
         ));
     }
 

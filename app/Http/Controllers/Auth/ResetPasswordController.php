@@ -94,8 +94,5 @@ class ResetPasswordController extends Controller
         return Password::broker();
     }
 
-    public function userReset(Request $request)
-    {
-        return 123;
-    }
+
 }

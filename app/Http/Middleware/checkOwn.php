@@ -4,9 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use Illuminate\Support\Facades\Session;
-
-class checkAdmin
+class checkOwn
 {
     /**
      * Handle an incoming request.
@@ -16,15 +14,16 @@ class checkAdmin
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
+    {
         $user = Auth::user();
-        if($user->admin){
-            Session::put('isAdmin', True);
+        $pageUser = $request->member;
+        if($user == $pageUser || $user->admin)
+        {
+            return $next($request);
         }
         else{
-            Session::put('isAdmin', False);
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(404);
         }
-        return $next($request);
+        
     }
 }

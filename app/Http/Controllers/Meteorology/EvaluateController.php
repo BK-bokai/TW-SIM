@@ -27,6 +27,7 @@ class EvaluateController extends Controller
 
     function index()
     {
+        $user = Auth::user();
         $Evaluate_List = Met_evaluates::where('Finish', 1)->orderBy('Time_Period')->get();
         $First_unFinish = Met_evaluates::where('Finish', 0)->orderBy('created_at')->first();
         if ($First_unFinish !== null) {
@@ -34,20 +35,22 @@ class EvaluateController extends Controller
         } else {
             $unFinish_List = Met_evaluates::where('Finish', 0)->orderBy('created_at')->get();
         }
-        return view('Meteorology.Evaluate', compact('Evaluate_List', 'First_unFinish', 'unFinish_List'));
+        return view('Meteorology.Evaluate', compact('Evaluate_List', 'First_unFinish', 'unFinish_List','user'));
     }
 
 
     function detail(Request $request, Met_evaluates $Met_evaluates)
     {
+        $user = Auth::user();
         $data = Excel::toArray(new MetEvaluateImport, public_path() . $Met_evaluates->Path);
         $id = $Met_evaluates->id;
         $Time_Period = $Met_evaluates->Time_Period;
-        return view('Meteorology.detailEvaluate', compact('data', 'id', 'Time_Period'));
+        return view('Meteorology.detailEvaluate', compact('data', 'id', 'Time_Period','user'));
     }
 
     function detailImg(Request $request, $area, Met_evaluates $Met_evaluates)
     {
+        $user = Auth::user();
         $Path = $Met_evaluates->Path;
         $All_img = $this->EvaluateService->get_img($Path,$area);
 
@@ -57,7 +60,7 @@ class EvaluateController extends Controller
 
         $id = $Met_evaluates->id;
         $Time_Period = $Met_evaluates->Time_Period;
-        return view('Meteorology.DetailImglEvaluate', compact('T2img', 'WSimg', 'WDimg', 'id', 'area', 'Time_Period'));
+        return view('Meteorology.DetailImglEvaluate', compact('T2img', 'WSimg', 'WDimg', 'id', 'area', 'Time_Period','user'));
     }
 
     function evaluate(Request $request)
