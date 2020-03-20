@@ -895,7 +895,6 @@ CREATE TABLE `met_obsdata_ws` (
 --
 
 INSERT INTO `met_obsdata_ws` (`id`, `Filename`, `Path`, `year`, `month`, `day`, `date`, `created_at`, `updated_at`) VALUES
-(65, '2016-01-01_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-01-01_WS_obs.xlsx', '2016', '1', '01', '2016-01-01', '2020-01-10 01:26:30', '2020-03-10 02:25:56'),
 (66, '2016-01-02_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-01-02_WS_obs.xlsx', '2016', '1', '01', '2016-01-02', '2020-01-10 01:26:30', '2020-03-10 02:25:56'),
 (67, '2016-01-03_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-01-03_WS_obs.xlsx', '2016', '1', '01', '2016-01-03', '2020-01-10 01:26:30', '2020-03-10 02:25:56'),
 (68, '2016-01-04_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-01-04_WS_obs.xlsx', '2016', '1', '01', '2016-01-04', '2020-01-10 01:26:30', '2020-03-10 02:25:56'),
@@ -1213,9 +1212,9 @@ INSERT INTO `met_obsdata_ws` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (380, '2016-11-11_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-11_WS_obs.xlsx', '2016', '11', '11', '2016-11-11', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
 (381, '2016-11-12_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-12_WS_obs.xlsx', '2016', '11', '11', '2016-11-12', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
 (382, '2016-11-13_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-13_WS_obs.xlsx', '2016', '11', '11', '2016-11-13', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
-(383, '2016-11-14_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-14_WS_obs.xlsx', '2016', '11', '11', '2016-11-14', '2020-01-10 02:17:01', '2020-03-10 02:25:56');
+(383, '2016-11-14_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-14_WS_obs.xlsx', '2016', '11', '11', '2016-11-14', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
+(384, '2016-11-15_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-15_WS_obs.xlsx', '2016', '11', '11', '2016-11-15', '2020-01-10 02:17:01', '2020-03-10 02:25:56');
 INSERT INTO `met_obsdata_ws` (`id`, `Filename`, `Path`, `year`, `month`, `day`, `date`, `created_at`, `updated_at`) VALUES
-(384, '2016-11-15_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-15_WS_obs.xlsx', '2016', '11', '11', '2016-11-15', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
 (385, '2016-11-16_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-16_WS_obs.xlsx', '2016', '11', '11', '2016-11-16', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
 (386, '2016-11-17_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-17_WS_obs.xlsx', '2016', '11', '11', '2016-11-17', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
 (387, '2016-11-18_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-11-18_WS_obs.xlsx', '2016', '11', '11', '2016-11-18', '2020-01-10 02:17:01', '2020-03-10 02:25:56'),
@@ -1262,7 +1261,8 @@ INSERT INTO `met_obsdata_ws` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (428, '2016-12-29_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-12-29_WS_obs.xlsx', '2016', '12', '12', '2016-12-29', '2020-01-10 02:17:39', '2020-03-10 02:25:56'),
 (429, '2016-12-30_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-12-30_WS_obs.xlsx', '2016', '12', '12', '2016-12-30', '2020-01-10 02:17:39', '2020-03-10 02:25:56'),
 (430, '2016-12-31_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-12-31_WS_obs.xlsx', '2016', '12', '12', '2016-12-31', '2020-01-10 02:17:39', '2020-03-10 02:25:56'),
-(434, '2017-01-01_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2017-01-01_WS_obs.xlsx', '2017', '1', '01', '2017-01-01', '2020-03-10 02:28:30', '2020-03-10 02:28:30');
+(434, '2017-01-01_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2017-01-01_WS_obs.xlsx', '2017', '1', '01', '2017-01-01', '2020-03-10 02:28:30', '2020-03-10 02:28:30'),
+(435, '2016-01-01_WS_obs.xlsx', '\\MetData\\Obs\\WS\\2016-01-01_WS_obs.xlsx', '2016', '1', '01', '2016-01-01', '2020-03-16 01:25:02', '2020-03-16 01:25:02');
 
 -- --------------------------------------------------------
 
@@ -1653,7 +1653,7 @@ INSERT INTO `met_simdata_t2` (`id`, `Filename`, `Path`, `year`, `month`, `day`, 
 (364, 'wrfout_d04_2016-12-03_T2.txt', '\\MetData\\Sim\\T2\\wrfout_d04_2016-12-03_T2.txt', '2016', '12', '0', '2016-12-03', '2020-01-10 02:28:18', '2020-03-10 02:25:57'),
 (365, 'wrfout_d04_2016-12-02_T2.txt', '\\MetData\\Sim\\T2\\wrfout_d04_2016-12-02_T2.txt', '2016', '12', '0', '2016-12-02', '2020-01-10 02:28:18', '2020-03-10 02:25:57'),
 (369, 'wrfout_d04_2016-12-01_T2.txt', '\\MetData\\Sim\\T2\\wrfout_d04_2016-12-01_T2.txt', '2016', '12', '0', '2016-12-01', '2020-01-13 07:42:15', '2020-03-10 02:25:57'),
-(372, 'wrfout_d04_2016-01-01_T2.txt', '\\MetData\\Sim\\T2\\wrfout_d04_2016-01-01_T2.txt', '2016', '1', '0', '2016-01-01', '2020-01-14 02:53:37', '2020-03-10 02:25:57');
+(373, 'wrfout_d04_2016-01-01_T2.txt', '\\MetData\\Sim\\T2\\wrfout_d04_2016-01-01_T2.txt', '2016', '1', '01', '2016-01-01', '2020-03-16 01:26:12', '2020-03-16 01:26:12');
 
 -- --------------------------------------------------------
 
@@ -2525,6 +2525,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT 0,
   `reset_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2537,11 +2538,11 @@ CREATE TABLE `users` (
 -- 傾印資料表的資料 `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `active`, `reset_token`, `provider`, `provider_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(7, 'root', '', '$2y$10$EVwLD8ugoVn4lv/HDSJmz.WMgrUK.83FENQ9hvYiQOKGafsjgoP8e', 'active', NULL, NULL, NULL, NULL, '2020-01-08 08:47:24', '2020-01-08 08:47:39'),
-(8, '劉博凱', '', '3001763766509673', 'active', NULL, 'facebook', '3001763766509673', NULL, '2020-01-09 01:02:16', '2020-01-09 01:02:16'),
-(9, 'bokai', 'bokai830124@gmail.com', '$2y$10$Di8r2l5.cz5/f3b32gkHZefimGGnF6oMnWxlABc7bNbdAfIYGukKW', 'active', NULL, NULL, NULL, NULL, '2020-01-10 09:04:51', '2020-01-10 09:05:19'),
-(10, '劉敏涵', 'kukuso820617@yahoo.com.tw', '3035491446469081', 'active', NULL, 'facebook', '3035491446469081', NULL, '2020-01-17 07:35:28', '2020-01-17 07:35:28');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `active`, `admin`, `reset_token`, `provider`, `provider_id`, `remember_token`, `created_at`, `updated_at`) VALUES
+(7, 'root', '', '$2y$10$EVwLD8ugoVn4lv/HDSJmz.WMgrUK.83FENQ9hvYiQOKGafsjgoP8e', 'active', 1, NULL, NULL, NULL, NULL, '2020-01-08 08:47:24', '2020-01-08 08:47:39'),
+(8, '劉博凱', '', '3001763766509673', 'active', 0, NULL, 'facebook', '3001763766509673', NULL, '2020-01-09 01:02:16', '2020-01-09 01:02:16'),
+(9, 'bokai', 'bokai830124@gmail.com', '$2y$10$CSkAtYZyMZzUf2/2r8QZaOzHTNzV4VNd5PkOqP0nq.2m.FBC4hJ/y', 'active', 0, 'have reseted', NULL, NULL, NULL, '2020-01-10 09:04:51', '2020-03-20 02:07:40'),
+(10, '劉敏涵', 'kukuso820617@yahoo.com.tw', '3035491446469081', 'active', 0, NULL, 'facebook', '3035491446469081', NULL, '2020-01-17 07:35:28', '2020-01-17 07:35:28');
 
 --
 -- 已傾印資料表的索引
@@ -2643,7 +2644,7 @@ ALTER TABLE `failed_jobs`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_evaluates`
@@ -2667,13 +2668,13 @@ ALTER TABLE `met_obsdata_wd`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_obsdata_ws`
 --
 ALTER TABLE `met_obsdata_ws`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_simdata_t2`
 --
 ALTER TABLE `met_simdata_t2`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=373;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=374;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `met_simdata_wd`
