@@ -64,4 +64,24 @@ class MemberService
         ]);
     }
 
+    public function passwordValidator(array $data)
+    {
+        return Validator::make($data, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['same:password'],
+        ], [
+            'password.required' => '請輸入最少8碼的密碼。',
+            'password.min' => '請輸入最少8碼的密碼。',
+            'password_confirmation.same' => '兩次密碼不相同。',
+            'password.confirmed' => '兩次密碼不相同。',
+        ]);
+    }
+
+    public function resetPassword($member, $password)
+    {
+        $member->password = $password;
+        $member->save();
+        return true;
+    }
+
 }

@@ -64,13 +64,13 @@ Route::middleware(['auth','checkAdmin'])->prefix('Met')->name('Met.')->group(fun
 });
 
 Route::middleware(['auth','checkAdmin'])->prefix('Member')->name('Member.')->namespace('Member')->group(function(){
-    Route::get('List','MemberController@index')->name('List');
+    Route::get('List','MemberController@index')->middleware('getOutNotAdmin')->name('List');
     Route::middleware('checkOwn')->group(function(){
         Route::get('{member}','MemberController@memberPage')->name('memberPage');
         Route::POST('{member}/check','MemberController@memberCheck')->name('Check');
         Route::PUT('{member}/Update','MemberController@memberUpdate')->name('Update');
         Route::get('{member}/updatePasswordPage','MemberController@memberUpdatePwdPage')->name('UpdatePwdPage');
-        Route::PUT('{member}/updatePassword','MemberController@memberUpdatePassword')->name('UpdatePwd');
+        Route::PUT('{member}/updatePassword','MemberController@memberUpdatePwd')->name('UpdatePwd');
     });
 });
 
