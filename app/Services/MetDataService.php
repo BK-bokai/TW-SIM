@@ -10,35 +10,33 @@ use App\Models\Met_simdata_ws;
 use App\Models\Met_simdata_wd;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Auth;
 
 class MetDataService
 {
     public function get_Month_Data($year, $month, $datatype, $var, $num)
     {
+        $user = Auth::user();
         if ($datatype == 'Obs') {
             if ($var == 'T2') {
                 $datas = Met_obsdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WS') {
                 $datas = Met_obsdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WD') {
                 $datas = Met_obsdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             }
         }
         if ($datatype == 'Sim') {
             if ($var == 'T2') {
                 $datas = Met_simdata_t2::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WS') {
                 $datas = Met_simdata_ws::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             } elseif ($var == 'WD') {
                 $datas = Met_simdata_wd::where('year', $year)->where('month', $month)->orderBy('date')->get();
-                return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num'));
             }
         }
+        return view('Meteorology.MetMonthData', compact('datas', 'year', 'month', 'datatype', 'var', 'num','user'));
+
     }
 
     public function check_date_and_data($year, $month, $datatype, $var)
